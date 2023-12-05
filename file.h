@@ -340,8 +340,6 @@ private:
                 }
                 if (entry>=0)
                 {
-                    printf(target);
-                    printf("------------\n");
                     n_inode = block->inodeID[entry];
                     for (int num=0;num<=inodeMem[n_inode].blockNum;num++)
                     {

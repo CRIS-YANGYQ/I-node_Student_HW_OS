@@ -47,7 +47,8 @@ std::vector<Request> get_stu_request_list(std::string teacher_id,std::string cou
 只用传入教师id和课程id，就可以得到该教师下所有要求的vector
 */
 
-
+//查询作业id是否存在
+bool homework_id_exist(std::string,fileSystem &fs);
 
 
 

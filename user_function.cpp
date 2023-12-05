@@ -38,21 +38,14 @@ size_t split(char *content, char s, char strings[100][USER_NUME_LEN]) {
 bool submit_homework(homework hw,fileSystem &fs)
 {
     char content[(BLOCK_SIZE-1)*BLOCKS_PER_INODE] = "\0";
-    char homeworkfolderPath[MAX_PATH_LEN] = "\0";
     char homeworkFilePath[MAX_PATH_LEN] = "\0";
     const char* student_id = hw.student_id.c_str();
     const char* course_id = hw.course_id.c_str();
     const char* hw_id = hw.hw_id.c_str();
-    snprintf(homeworkfolderPath, MAX_PATH_LEN, "/user/%s/%s/%s",student_id,course_id,hw_id);
-    if(!fs.createDirectory(homeworkfolderPath,"admin"))
-    {
-        printf("提交作业失败\n");
-        return 0;
-    }
-    snprintf(homeworkFilePath, MAX_PATH_LEN, "/user/%s/%s/%s/homework",student_id,course_id,hw_id);
+    snprintf(homeworkFilePath, MAX_PATH_LEN, "/user/%s/%s/%s",student_id,course_id,hw_id);
     snprintf(content, (BLOCK_SIZE-1)*BLOCKS_PER_INODE, "%s;%s;%s;%s;%s;%s;%d;%d",hw.student_name.c_str(),hw.teacher_name.c_str(),hw.course_name.c_str(),hw.title.c_str(),hw.request_id.c_str(),hw.content.c_str(),hw.isMarked,hw.grade);
-    if (fs.createFile(homeworkFilePath,"admin")&&fs.writeFile(homeworkFilePath,content,"admin"))
-    {   
+    if(fs.createFile(homeworkFilePath,"admin")&&fs.writeFile(homeworkFilePath,content,"admin"))
+    {
         printf("提交作业成功\n");
     }
     else 
@@ -70,7 +63,7 @@ homework get_stu_homework(homework hw,fileSystem &fs)
     const char* student_id = hw.student_id.c_str();
     const char* course_id = hw.course_id.c_str();
     const char* hw_id = hw.hw_id.c_str();
-    snprintf(homeworkFilePath, MAX_PATH_LEN, "/user/%s/%s/%s/homework",student_id,course_id,hw_id);
+    snprintf(homeworkFilePath, MAX_PATH_LEN, "/user/%s/%s/%s",student_id,course_id,hw_id);
 
     if(fs.readFile(homeworkFilePath,content,"admin"))
     {
@@ -115,7 +108,7 @@ std::vector<homework> get_stu_homework_list(std::string student_id,std::string c
         for (int i = 0;i<file_num;i++)
         {
             char homeworkPath[MAX_PATH_LEN] = "\0";
-            snprintf(homeworkPath, MAX_PATH_LEN, "%s/%s/homework",courseFilePath,homework_group[i]);
+            snprintf(homeworkPath, MAX_PATH_LEN, "%s/%s",courseFilePath,homework_group[i]);
             hw.hw_id = homework_group[i];
             hw = get_stu_homework(hw,fs);
             homework_list.push_back(hw);
@@ -130,17 +123,10 @@ bool submit_request(Request myRequest,fileSystem &fs)
 {
     char homeworkFilePath[MAX_PATH_LEN] = "\0";
     char content[(BLOCK_SIZE-1)*BLOCKS_PER_INODE] = "\0";
-    char homeworkfolderPath[MAX_PATH_LEN] = "\0";
     const char* teacher_id = myRequest.teacher_id.c_str();
     const char* course_id = myRequest.course_id.c_str();
     const char* id = myRequest.id.c_str();
-    snprintf(homeworkfolderPath, MAX_PATH_LEN, "/user/%s/%s/%s",teacher_id,course_id,id);
-    if(!fs.createDirectory(homeworkfolderPath,"admin"))
-    {
-        printf("上传作业要求失败\n");
-        return 0;
-    }
-    snprintf(homeworkFilePath, MAX_PATH_LEN, "/user/%s/%s/%s/homework_request",teacher_id,course_id,id);
+    snprintf(homeworkFilePath, MAX_PATH_LEN, "/user/%s/%s/%s",teacher_id,course_id,id);
     snprintf(content, (BLOCK_SIZE-1)*BLOCKS_PER_INODE, "%s;%s;%s;%s",myRequest.teacher_name.c_str(),myRequest.course_name.c_str(),myRequest.title.c_str(),myRequest.content.c_str());
     if (fs.createFile(homeworkFilePath,"admin")&&fs.writeFile(homeworkFilePath,content,"admin"))
     {   
@@ -161,7 +147,7 @@ Request get_request(Request myRequest,fileSystem &fs)
     const char* teacher_id = myRequest.teacher_id.c_str();
     const char* course_id = myRequest.course_id.c_str();
     const char* id = myRequest.id.c_str();
-    snprintf(homeworkFilePath, MAX_PATH_LEN, "/user/%s/%s/%s/homework_request",teacher_id,course_id,id);
+    snprintf(homeworkFilePath, MAX_PATH_LEN, "/user/%s/%s/%s",teacher_id,course_id,id);
 
     if(fs.readFile(homeworkFilePath,content,"admin"))
     {
@@ -203,11 +189,53 @@ std::vector<Request> get_stu_request_list(std::string teacher_id,std::string cou
         for (int i = 0;i<file_num;i++)
         {
             char homeworkPath[MAX_PATH_LEN] = "\0";
-            snprintf(homeworkPath, MAX_PATH_LEN, "%s/%s/homework_request",courseFilePath,request_group[i]);
+            snprintf(homeworkPath, MAX_PATH_LEN, "%s/%s",courseFilePath,request_group[i]);
             re.id = request_group[i];
             re = get_request(re,fs);
             request_list.push_back(re);
         }
     }
     return request_list;
+}
+
+bool homework_id_exist(std::string homework_id,fileSystem &fs)
+{   
+    const char* id = homework_id.c_str();
+    const char* user_path = "/user";
+    char user_content[BLOCKS_PER_INODE*(BLOCK_SIZE-1)] = "\0";
+    if(fs.getFileNames(user_path,user_content))
+    {
+        char user_group[100][USER_NUME_LEN];
+        int user_num = split(user_content,';',user_group);
+        for(int i=0;i<user_num;i++)
+        {
+            char course_group[BLOCKS_PER_INODE*(BLOCK_SIZE-1)] = "\0";
+            char user_path[MAX_PATH_LEN] = "\0";
+            snprintf(user_path, MAX_PATH_LEN, "/user/%s",user_group[i]);
+            if(fs.getFileNames(user_path,course_group))
+            {
+                char course_group_id[100][USER_NUME_LEN];
+                int course_num = split(course_group,';',course_group_id);
+                for(int j=0;j<course_num;j++)
+                {
+                    char homework_group[BLOCKS_PER_INODE*(BLOCK_SIZE-1)] = "\0";
+                    char course_path[MAX_PATH_LEN] = "\0";
+                    snprintf(course_path, MAX_PATH_LEN, "/user/%s/%s",user_group[i],course_group_id[j]);
+                    if(fs.getFileNames(course_path,course_group))
+                    {
+                        char homework_group_id[100][USER_NUME_LEN];
+                        int homework_num = split(course_group,';',homework_group_id);
+                        for(int k=0;k<homework_num;k++)
+                        {
+                            if(strcmp(homework_group_id[k],id)==0)
+                            {
+                                return 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return 0;
 }
