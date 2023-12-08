@@ -606,7 +606,7 @@ int main()
 	// testYYQFILE();
 	while (1)
 		//testPasswordAuthenticator();
-		Welcome();
+		testYYQFILE();
 		//test();
 	//teacherMode();
 	//test();
