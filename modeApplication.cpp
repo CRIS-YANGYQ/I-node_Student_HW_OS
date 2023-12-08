@@ -349,7 +349,7 @@ void submitHomeworkInFile(std::string student_id, fileSystem& myFS) {
 								break;
 							}
 						}
-						if ((!homeworkTable.isHomeworkIDexists(hw_id)) && isLegal_local) {
+						if ((!homework_id_exist(hw_id,myFS)) && isLegal_local) {
 							break;
 						}
 					}
@@ -533,11 +533,26 @@ void assignHomeworkRequest(std::string teacher_id) {
 					temp_request.course_id = teacher_selectection_table[i].course_id;
 					std::cout << "Enter the id of your request for homework , press 'Enter' to end it.\nID:";
 					std::string temp_req_id;
-					std::cin >> temp_req_id;
-					while (requests_table.searchRequestByID(temp_req_id).size() != 0) {
-						std::cout << "Re-Enter the id. The ID you entered just nowhas existed\nID:";
+					// check if temp_req_id is legal
+					while (1) {
+						std::cout << "Enter your homework id, press 'Enter' to end it.\nMake sure its uniqueness or you need to repeat.\nHW ID:";
 						std::cin >> temp_req_id;
+						bool isLegal_local = true;
+						for (auto& req_to_be_submitted : teacher_course_request_table) {
+							if (req_to_be_submitted.id == temp_req_id) {
+								isLegal_local = false;
+								break;
+							}
+						}
+						if ((requests_table.searchRequestByID(temp_req_id).size() == 0) && isLegal_local) {
+							break;
+						}
 					}
+					// std::cin >> temp_req_id;
+					// while (requests_table.searchRequestByID(temp_req_id).size() != 0) {
+					// 	std::cout << "Re-Enter the id. The ID you entered just nowhas existed\nID:";
+					// 	std::cin >> temp_req_id;
+					// }
 					temp_request.id = temp_req_id;
 					std::cout << "Enter the title of your request for homework , press 'Enter' to end it.\nTitle:";
 					std::cin >> temp_request.title;
@@ -644,11 +659,26 @@ void assignHomeworkRequestInFile(std::string teacher_id, fileSystem& myFS) {
 					temp_request.course_id = teacher_selectection_table[i].course_id;
 					std::cout << "Enter the id of your request for homework , press 'Enter' to end it.\nID:";
 					std::string temp_req_id;
-					std::cin >> temp_req_id;
-					while (requests_table.searchRequestByID(temp_req_id).size() != 0) {
-						std::cout << "Re-Enter the id. The ID you entered just nowhas existed\nID:";
+					// check if temp_req_id is legal
+					while (1) {
+						std::cout << "Enter your homework id, press 'Enter' to end it.\nMake sure its uniqueness or you need to repeat.\nHW ID:";
 						std::cin >> temp_req_id;
+						bool isLegal_local = true;
+						for (auto& req_to_be_submitted : teacher_course_request_table) {
+							if (req_to_be_submitted.id == temp_req_id) {
+								isLegal_local = false;
+								break;
+							}
+						}
+						if ((requests_table.searchRequestByID(temp_req_id).size() == 0) && isLegal_local) {
+							break;
+						}
 					}
+					// std::cin >> temp_req_id;
+					// while (requests_table.searchRequestByID(temp_req_id).size() != 0) {
+					// 	std::cout << "Re-Enter the id. The ID you entered just nowhas existed\nID:";
+					// 	std::cin >> temp_req_id;
+					// }
 					temp_request.id = temp_req_id;
 					std::cout << "Enter the title of your request for homework , press 'Enter' to end it.\nTitle:";
 					std::cin >> temp_request.title;
