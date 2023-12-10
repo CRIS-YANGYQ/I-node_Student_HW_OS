@@ -80,7 +80,11 @@ homeworkSet::homeworkSet(int capacity, std::vector<homework> homeworkVector) {
 homeworkSet::~homeworkSet() {}
 
 std::vector<homework> homeworkSet::getHomeworkVector(){
-	return this->homeworkVector;
+	std::vector<homework> return_request_vector;
+	for(int i = 0; i < this->size; ++i){
+		return_request_vector.emplace_back(this->homeworkVector[i]);
+	}
+	return return_request_vector;
 }
 // 利用hwvector初始化infovector
 homework homeworkSet::initInfo(homework origin) {
@@ -397,6 +401,44 @@ void homeworkSet::displayHomeworkVector() {
 		std::cout << homeworkVector[i];
 	}
 }
+std::string homeworkSet::getGradeStats(std::string student_id) {
+    int marked_hw_count = 0, grade_sum = 0, failed_count = 0;
+    std::vector<homework> student_homework_vector = searchHomeworkByStudentID(student_id);
+    std::string result;
+	if (student_homework_vector.size()==0){
+		result = "You have no homework!";
+        return result;
+	}
+
+    for (int i = 0; i < student_homework_vector.size(); ++i) {
+        if (student_homework_vector[i].isMarked == 1) {
+            marked_hw_count++;
+            grade_sum += student_homework_vector[i].grade;
+            if (student_homework_vector[i].grade < 60) {
+                failed_count++;
+            }
+        }
+    }
+
+    result += "You have submitted " + std::to_string(student_homework_vector.size()) +
+              " homeworks, " + std::to_string(student_homework_vector.size() - marked_hw_count) +
+              " of which have not been marked by your teacher by now.\n";
+
+    if (marked_hw_count > 0) {
+        result += "In the marked homeworks, you've got a mean score " +
+                  std::to_string((marked_hw_count == 0) ? 0 : grade_sum / marked_hw_count) + ".\n";
+    }
+
+    if (failed_count == 0) {
+        result += "None of your homework has failed.";
+    } else {
+        result += "The number of your homework which failed is " + std::to_string(failed_count);
+    }
+
+    return result;
+}
+
+
 /**
 	* @brief Displays grade statistics for a given student.
 	*
@@ -424,6 +466,52 @@ void homeworkSet::displayGradeStats(std::string student_id) {
 		printf("The number of your homework whichi failed is %d", failed_count);
 	}
 
+}
+std::string homeworkSet::getGradeStats(std::string student_id, std::string course_id) {
+    int marked_hw_count = 0, target_homework_num = 0, grade_sum = 0, failed_count = 0;
+    std::string course_name;
+    std::vector<homework> student_homework_vector = searchHomeworkByStudentID(student_id);
+    for (int i = 0; i < student_homework_vector.size(); ++i) {
+        if (student_homework_vector[i].course_id != course_id) {
+            // Non-matching course, skip
+            continue;
+        }
+        target_homework_num++;
+        if (student_homework_vector[i].isMarked == 1) {
+            marked_hw_count++;
+            grade_sum += student_homework_vector[i].grade;
+            if (student_homework_vector[i].grade < 60) {
+                failed_count++;
+            }
+        }
+        course_name = student_homework_vector[i].course_name;
+    }
+    if (target_homework_num == 0) {
+        return "No homework submitted for the specified course.";
+    }
+
+    std::string result = "ID: " + course_id + " Name: " + course_name + "\n";
+
+    if (marked_hw_count == 0) {
+        result += "You have submitted " + std::to_string(target_homework_num) + " homeworks, none of which has already been marked!\n";
+    } else {
+        result += "You have submitted " + std::to_string(target_homework_num) +
+                  " homeworks, " + std::to_string(target_homework_num - marked_hw_count) +
+                  " of which have not been marked by your teacher by now.\n";
+
+        if (marked_hw_count > 0) {
+            result += "In the marked homeworks, you've got a mean score " +
+                      std::to_string((grade_sum == 0) ? 0 : grade_sum / marked_hw_count) + ".\n";
+        }
+
+        if (failed_count == 0) {
+            result += "None of your homework has failed.\n";
+        } else {
+            result += "The number of your homework which failed is " + std::to_string(failed_count) + ".\n";
+        }
+    }
+
+    return result;
 }
 
 void homeworkSet::displayGradeStats(std::string student_id, std::string course_id){
@@ -645,8 +733,12 @@ void requestSet::initInfoVector(){
 }
 
 std::vector<Request> requestSet::getRequestVector(){
-		return this->requestVector;
+	std::vector<Request> return_request_vector;
+	for(int i = 0; i < this->size; ++i){
+		return_request_vector.emplace_back(this->requestVector[i]);
 	}
+	return return_request_vector;
+}
 /**
  * @brief 基于元素向量初始化Request对象。
  *
@@ -738,6 +830,7 @@ void requestSet::readDatabase(std::string destinationPath, std::string databaseN
 	int count_hw = 0;
 	while (std::getline(csv_data, line))
 	{
+		line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
 		std::istringstream lineStream;         //�������ַ���line���뵽�ַ���istringstream��
 		std::vector<std::string> words; //����һ���ַ�������
 		std::string word;
@@ -747,8 +840,8 @@ void requestSet::readDatabase(std::string destinationPath, std::string databaseN
 		while (std::getline(lineStream, word, ',')) //���ַ�����sin�е��ַ�����field�ַ����У��Զ���Ϊ�ָ���
 		{
 			words.push_back(word); //��ÿһ���е��������push
-			// std::cout << word << " ";
-			// std::cout << atol(word.c_str());
+			//std::cout << word << " ";
+			//std::cout << atol(word.c_str());
 		}
 		// std::cout << "initRequest" << std::endl;
 		requestVector[count_hw] = initRequest(words);

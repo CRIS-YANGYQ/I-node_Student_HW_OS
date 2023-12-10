@@ -219,6 +219,26 @@ public:
 	 */
 
 	void displayHomeworkVector() ;
+
+	/**
+	 * @brief get grade statistics for a given student.
+	 *
+	 * @param student_id The ID of the student.
+	 * @return std::string The grade statistics.
+	 */
+	std::string getGradeStats(std::string student_id);
+
+
+	/**
+	 * @brief get grade statistics for a given student.
+	 *
+	 * @param student_id The ID of the student.
+	 * @param course_id The ID of the course.
+	 * @return std::string The grade statistics.
+	 */
+	std::string getGradeStats(std::string student_id, std::string course_id);
+
+	
 	/**
 	 * @brief Displays grade statistics for a given student.
 	 *
@@ -226,6 +246,7 @@ public:
 	 * @return void
 	 */
 	void displayGradeStats(std::string student_id);
+
 	/**
 	 * @brief Displays grade statistics for a given student and a given course.
 	 *

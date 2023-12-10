@@ -116,6 +116,14 @@ public:
     void readDatabase(std::string destinationPath, std::string databaseName);
 
     /**
+     * @brief 添加数据到数据库文件
+     * @param newUser 新的用户
+     * @param destinationPath 目标路径
+     * @param databaseName 数据库名称
+     */
+    bool addDatabase(const User& newUser, std::string destinationPath, std::string databaseName) ;
+
+    /**
      * @brief 显示用户信息向量
      */
     void displayUserVector();

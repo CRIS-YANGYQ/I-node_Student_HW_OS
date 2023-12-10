@@ -135,7 +135,26 @@ void userTable::displayUserVector() {
         std::cout << userVector[i];
     }
 }
+bool userTable::addDatabase(const User& newUser, std::string destinationPath, std::string databaseName) {
+    std::ofstream outFile;
+    outFile.open(destinationPath + databaseName, std::ios::out | std::ios::app); // Open in append mode
 
+    if (!outFile.is_open()) {
+        std::cerr << "Error: opening file failed" << std::endl;
+        return false;
+    }
+
+    // Write the new data to the file
+    outFile << newUser.name << ','
+            << newUser.kind << ','
+            << newUser.id << ','
+            << newUser.gender << ',' 
+            << newUser.priority << std::endl;
+
+    outFile.close();
+    return true;
+
+}
 // 根据用户ID搜索用户信息
 std::vector<User> userTable::searchUserByID(std::string id) {
     std::vector<User> result;

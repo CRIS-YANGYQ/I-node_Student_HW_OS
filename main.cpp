@@ -104,8 +104,8 @@ void studentMode() {
 	while (1) {
 		// Task selection
 		cout << "                                  Student Mode" << endl;
-		cout << "                                   			  Hi, User "<<enteredStudentID << endl;
-		cout << "                           ★    1. View Homework Content\t\t\t★" << endl;
+		cout << "                                   			  Hi, User "<< enteredStudentID << endl;
+		cout << "                           ★    1. View Homework Request Content\t\t\t★" << endl;
 		cout << "                           ★    2. Submit Homework\t\t\t★" << endl;
 		cout << "                           ★    3. Get Course Grade Summary\t\t\t★" << endl;
 		cout << "                           ★    4. Clear Screen\t\t\t★" << endl;
@@ -163,13 +163,13 @@ void teacherMode() {
 		switch (teacherChoice) {
 		case '0': return;
 		case '1':
-			assignHomeworkRequest(enteredTeacherID);
+			assignHomeworkRequestInFile(enteredTeacherID, fs);
 			break;
 		case '2':
-			acceptHomework(enteredTeacherID);
+			acceptHomeworkInFile(enteredTeacherID, fs);
 			break;
 		case '3':
-			markHomework(enteredTeacherID);
+			markHomeworkInFile(enteredTeacherID, fs);
 			break;
 		case '4':
 			system("clear");
@@ -225,14 +225,75 @@ switch (adminChoice)
 			break;
 		}
 		case '2': {
-			string addUserId, addPassword;
+			userTable users_table(MAX_USER_NUMBER);
+			User new_user;
+			
+			std::string addUserName, addUserId, addPassword ;
+			cout << "Enter Name: ";
+			cin >> addUserName;
 			cout << "Enter ID: ";
-			cin >> addUserId;
+			std::vector<User> searched_users;
+			while(true){
+				cin >> addUserId;
+				searched_users = users_table.searchUserByID(addUserId);
+				if(searched_users.size() == 0){
+					break;
+                }
+				else{
+                    std::cout << "ID already exists. Try another one.\nEnter ID: " << std::endl;
+                }
+        
+			}
+
+			cout << "Enter Kind(0 for student and 1 for teacher): ";
+			char kind_choice;
+			cin>>kind_choice;
+			while(true) {
+				if(kind_choice == '0'){
+					new_user.kind = "student";
+					new_user.priority = 1;
+					break;
+				}
+				else if(kind_choice == '1'){
+					new_user.kind = "teacher";
+					new_user.priority = 2;
+					break;
+				}
+				else{
+					cout << "Your answer is illegal.\nPlease enter 0 for student and 1 for teacher: ";
+                    cin>>kind_choice;
+				}
+			}
+			cout << "Enter Gender(0 for male and 1 for female): ";
+			char gender_choice;
+			cin>>gender_choice;
+			while(true) {
+				if(gender_choice == '0'){
+					new_user.gender = "Male";
+					break;
+				}
+				else if(gender_choice == '1'){
+					new_user.gender = "Female";
+					break;
+				}
+				else{
+					cout << "Your answer is illegal.\nPlease enter 0 for male and 1 for female: ";
+                    cin>>gender_choice;
+				}
+			}
 			cout << "Enter Password: ";
 			cin >> addPassword;
 			authenticator.addEntry(addUserId, addPassword);
-			cout << "Successfull update: " << endl;
-			break;
+			cout << "Successfull update for password: " << endl;
+			new_user.name = new_user.name;
+			new_user.id = new_user.id;
+			if(users_table.addDatabase(new_user,databaseFolder,userTablePath)){
+				cout << "Successfull update for user table: " << endl;
+			}
+			else{
+				cout << "Failed update for user table: " << endl;
+			}
+
 		}
 		case '3': {
 			string verifyUserId, verifyPassword;
@@ -295,7 +356,8 @@ void Welcome() {
 	cout << "                           ★    1. Teacher Login\t\t\t★" << endl;
 	cout << "                           ★    2. Student Login\t\t\t★" << endl;
 	cout << "                           ★    3. Administrator Mode\t\t\t★" << endl;
-	cout << "                           ★    4. Bless Us\t\t\t★" << endl;
+    cout << "                           ★    4. Clear Screen\t\t\t★" << endl;
+	cout << "                           ★    B. Bless Us\t\t\t★" << endl;
 	cout << "                           ★    0. Exit\t\t\t★" << endl;
 
 	char globalChoice;
@@ -312,6 +374,9 @@ void Welcome() {
 		administratorMode();
 		break;
 	case '4':
+		system("clear");
+		break;
+	case 'B':
 		GodBlessUs();
 		sleepMilliseconds(5000);
 		break;
@@ -417,7 +482,7 @@ template<typename T>
 void createDirByInfoVector(const std::vector<T>& infoVectorInstance, fileSystem& myFS) {
     for (const auto& info_ele : infoVectorInstance) {
 		// 获取查询字符串concatenateStrings()
-        std::vector<std::string> returned_path = concatenateStrings(info_ele);
+        std::vector<std::string> returned_path = concatenateStrings2Init(info_ele);
         for (const std::string& path_ele : returned_path) {
 			std::cout << path_ele<<std::endl;
 			if(!myFS.pathIsExist(path_ele.c_str())){
@@ -446,7 +511,11 @@ void transferCSV2INODE(fileSystem &myFS){
 	request_table.initInfoVector();
 	createDirByInfoVector(request_table.infoVector, myFS);
 	std::vector<Request> request_vector_copy = request_table.getRequestVector();
+	std::cout<<"Request vector size: "<<request_vector_copy.size()<<std::endl;
+	int index = 0;
 	for(auto& req_copy: request_vector_copy){
+		index++;
+		std:cout<<index<<std::endl;
 		submit_request(req_copy, myFS);
 	}
 
@@ -578,6 +647,7 @@ void testWLFILE() {
 
 void testYYQFILE(){
 	transferCSV2INODE(fs);
+
 	while (1)
 		Welcome();
 }
@@ -604,7 +674,7 @@ int main()
 {
 	// testAppendDB();
 	// testYYQFILE();
-	while (1)
+	//while (1)
 		//testPasswordAuthenticator();
 		testYYQFILE();
 		//test();

@@ -16,7 +16,8 @@ bool submit_homework(homework,fileSystem &fs);
 /*
 传入一个homework对象，除了isMarked和grade，其他属性都要有
 */
-
+// 打分作业
+bool set_Score(homework hw,fileSystem &fs);
 //老师获取学生作业的函数
 homework get_stu_homework(homework,fileSystem &fs);
 /*
@@ -49,7 +50,8 @@ std::vector<Request> get_stu_request_list(std::string teacher_id,std::string cou
 
 //查询作业id是否存在
 bool homework_id_exist(std::string,fileSystem &fs);
-
+//查询作业要求id是否存在
+bool request_id_exist(std::string request_id,fileSystem &fs);
 
 
 #endif

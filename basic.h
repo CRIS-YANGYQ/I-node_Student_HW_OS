@@ -30,7 +30,7 @@ struct homework {
         << "\tteacher_name: " << hw.teacher_name << "\tteacher_id: " << hw.teacher_id
         << "\tcourse_name: " << hw.course_name << "\tcourse_id: " << hw.course_id
         << "\ttitle: " << hw.title << "\trequest_id: " << hw.request_id
-        << "\thw_id" << hw.hw_id << "\tcontent: " << hw.content
+        << "\thw_id: " << hw.hw_id << "\tcontent: " << hw.content
         << "\tisMarked: " << hw.isMarked << "\tgrade: " << hw.grade << std::endl;
     return out;
 }
@@ -66,7 +66,7 @@ struct Request {
 };
 // 通用的拼接查询字符串的函数模板 Homework and Request
 template<typename T>
-std::vector<std::string> concatenateStrings(const T& info) {
+std::vector<std::string> concatenateStrings2Init(const T& info) {
 	static_assert(
         (std::is_same<T, homework>::value) ||
         (std::is_same<T, Request>::value),
@@ -88,16 +88,38 @@ std::vector<std::string> concatenateStrings(const T& info) {
     std::string secondString = firstString + "/" + info.course_id;
     result.push_back(secondString);
 
+	// std::string thirdString;
+    // if constexpr (std::is_same<T, homework>::value) {
+    //     thirdString = secondString + "/" + info.hw_id ;
+    // } else if constexpr (std::is_same<T, Request>::value) {
+    //     thirdString = secondString + "/" + info.id;
+    // }
+    // //thirdString = secondString + "/" + (std::is_same<T, homework>::value ? info.hw_id : info.id);
+    // result.push_back(thirdString);
+
+    return result;
+}
+template<typename T>
+std::string pathStrings2Submit(const T& info) {
+	static_assert(
+        (std::is_same<T, homework>::value) ||
+        (std::is_same<T, Request>::value),
+        "concatenateStrings can only be used with homework or Request"
+    );
+    std::string firstString;
+    if constexpr (std::is_same<T, homework>::value) {
+        firstString = "/user/" + info.student_id;
+    } else if constexpr (std::is_same<T, Request>::value) {
+        firstString = "/user/" + info.teacher_id;
+    }
+    std::string secondString = firstString + "/" + info.course_id;
 	std::string thirdString;
     if constexpr (std::is_same<T, homework>::value) {
         thirdString = secondString + "/" + info.hw_id ;
     } else if constexpr (std::is_same<T, Request>::value) {
         thirdString = secondString + "/" + info.id;
     }
-    //thirdString = secondString + "/" + (std::is_same<T, homework>::value ? info.hw_id : info.id);
-    result.push_back(thirdString);
 
-    return result;
+    return thirdString;
 }
-
 #endif

@@ -89,7 +89,25 @@ homework get_stu_homework(homework hw,fileSystem &fs)
     }
     return hw;
 }
-
+bool set_Score(homework hw,fileSystem &fs)
+{
+    char content[(BLOCK_SIZE-1)*BLOCKS_PER_INODE] = "\0";
+    char homeworkFilePath[MAX_PATH_LEN] = "\0";
+    const char* student_id = hw.student_id.c_str();
+    const char* course_id = hw.course_id.c_str();
+    const char* hw_id = hw.hw_id.c_str();
+    hw.isMarked = 1;
+    snprintf(homeworkFilePath, MAX_PATH_LEN, "/user/%s/%s/%s",student_id,course_id,hw_id);
+    snprintf(content, (BLOCK_SIZE-1)*BLOCKS_PER_INODE, "%s;%s;%s;%s;%s;%s;%d;%d",hw.student_name.c_str(),hw.teacher_name.c_str(),hw.course_name.c_str(),hw.title.c_str(),hw.request_id.c_str(),hw.content.c_str(),hw.isMarked,hw.grade);
+    if(fs.writeFile(homeworkFilePath,content,"admin")){
+        printf("打分作业成功\n");
+        return true;
+    }
+    else {
+        printf("打分作业失败\n");
+        return false;
+    }
+}
 std::vector<homework> get_stu_homework_list(std::string student_id,std::string course_id,fileSystem &fs)
 {
     std::vector<homework> homework_list;
@@ -228,6 +246,48 @@ bool homework_id_exist(std::string homework_id,fileSystem &fs)
                         for(int k=0;k<homework_num;k++)
                         {
                             if(strcmp(homework_group_id[k],id)==0)
+                            {
+                                return 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+bool request_id_exist(std::string request_id,fileSystem &fs)
+{   
+    const char* id = request_id.c_str();
+    const char* user_path = "/user";
+    char user_content[BLOCKS_PER_INODE*(BLOCK_SIZE-1)] = "\0";
+    if(fs.getFileNames(user_path,user_content))
+    {
+        char user_group[100][USER_NUME_LEN];
+        int user_num = split(user_content,';',user_group);
+        for(int i=0;i<user_num;i++)
+        {
+            char course_group[BLOCKS_PER_INODE*(BLOCK_SIZE-1)] = "\0";
+            char user_path[MAX_PATH_LEN] = "\0";
+            snprintf(user_path, MAX_PATH_LEN, "/user/%s",user_group[i]);
+            if(fs.getFileNames(user_path,course_group))
+            {
+                char course_group_id[100][USER_NUME_LEN];
+                int course_num = split(course_group,';',course_group_id);
+                for(int j=0;j<course_num;j++)
+                {
+                    char request_group[BLOCKS_PER_INODE*(BLOCK_SIZE-1)] = "\0";
+                    char course_path[MAX_PATH_LEN] = "\0";
+                    snprintf(course_path, MAX_PATH_LEN, "/user/%s/%s",user_group[i],course_group_id[j]);
+                    if(fs.getFileNames(course_path,course_group))
+                    {
+                        char request_group_id[100][USER_NUME_LEN];
+                        int request_num = split(course_group,';',request_group_id);
+                        for(int k=0;k<request_num;k++)
+                        {
+                            if(strcmp(request_group_id[k],id)==0)
                             {
                                 return 1;
                             }
