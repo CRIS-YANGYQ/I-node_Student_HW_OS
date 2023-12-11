@@ -1490,12 +1490,12 @@ T my_min(T a, T b) {
         }
         else 
         {
-            printf("The specified path does not exist!\n");
+            printf("The specified path %s does not exist!\n", path);
             return 0;
         }
         if(!flag)
         {
-            printf("The specified path does not exist!\n");
+            printf("The specified path %s does not exist!\n", path);
             return 0;
         }
     }

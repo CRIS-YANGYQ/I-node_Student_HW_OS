@@ -9,18 +9,7 @@
 // #define ERROR_CODE_NO_HOMEWORK 5
 // #define ERROR_CODE_DUPLICATE_HOMEWORK 6
 // #define ERROR_CODE_WRONG_HOMEWORK 7
-enum ErrorCodes {
-    SUCCESS = 0,
-    ERROR_CODE_DUPLICATE_USER = 1,
-    ERROR_CODE_NO_USER = 2,
-    ERROR_CODE_IDENTITY = 3,
-    ERROR_CODE_NO_COURSE = 4,
-    ERROR_CODE_NO_HOMEWORK = 5,
-    ERROR_CODE_DUPLICATE_HOMEWORK = 6,
-    ERROR_CODE_WRONG_HOMEWORK = 7,
-    ERROR_CODE_DUPLICATE_REQUEST = 8,
-	ERROR_CODE_WRONG_REQUEST = 9
-};
+
 
 void readHomeworkRequest(std::string student_id) {
 	// 加载用户表
@@ -166,7 +155,7 @@ passing_massage readHomeworkRequestInFileWithServer(std::string student_id, file
 		std::cout << "Err: No user returned to vector";
 		message_request.err_code = ERROR_CODE_NO_USER;
 		return message_request;
-		exit(0);
+		// exit(0);
 	}
 	else {//size == 1
 		student_user = vec_student_user[0];

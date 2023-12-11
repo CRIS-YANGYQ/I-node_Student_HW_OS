@@ -284,6 +284,7 @@ switch (adminChoice)
 			cout << "Enter Password: ";
 			cin >> addPassword;
 			authenticator.addEntry(addUserId, addPassword);
+			authenticator.savePasswordMapToFile(passwordsPath);
 			cout << "Successfull update for password: " << endl;
 			new_user.name = new_user.name;
 			new_user.id = new_user.id;
@@ -492,10 +493,38 @@ void createDirByInfoVector(const std::vector<T>& infoVectorInstance, fileSystem&
     }
 }
 
+void createUserDirByInfoVector(const std::vector<User> user_info_vector, fileSystem& myFS){
+	for (const auto& user_info_ele : user_info_vector) {
+        std::string path = "/user/" + user_info_ele.id;
+		if (!myFS.pathIsExist(path.c_str())){
+			myFS.createDirectory(path.c_str(), __admin);
+		}
+		
+    }
+}
 
+void createCourseDirByInfoVector(const std::vector<Course2User> selection_info_vector, fileSystem& myFS){
+	for (const auto& selection_info_ele : selection_info_vector) {
+        std::string path = "/user/" + selection_info_ele.user_id + "/"+ selection_info_ele.course_id;
+        if (!myFS.pathIsExist(path.c_str())){
+            myFS.createDirectory(path.c_str(), __admin);
+        }
+        
+    }
+}
 
 // CSV到I-node
 void transferCSV2INODE(fileSystem &myFS){
+	userTable user_table(MAX_USER_NUMBER);
+	user_table.readDatabase(databaseFolder, userTablePath);
+	user_table.initInfoVector();
+	createUserDirByInfoVector(user_table.infoVector, myFS);
+
+	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+	selection_table.initInfoVector();
+	createCourseDirByInfoVector(selection_table.infoVector, myFS);
+
 	homeworkSet homework_table(MAX_HOMEWORK_NUMBER);
 	homework_table.readDatabase(databaseFolder, homeworkSetPath);
 	homework_table.initInfoVector();
@@ -518,17 +547,6 @@ void transferCSV2INODE(fileSystem &myFS){
 		std:cout<<index<<std::endl;
 		submit_request(req_copy, myFS);
 	}
-
-	
-	// userTable user_table(MAX_USER_NUMBER);
-	// user_table.readDatabase(databaseFolder, userTablePath);
-	// user_table.initInfoVector();
-	// createDirByInfoVector(user_table.infoVector, myFS);
-
-	// Course2UserTable selection_table(MAX_SELECTION_NUMBER);
-	// selection_table.readDatabase(databaseFolder, selectionTablePath);
-	// selection_table.initInfoVector();
-	// createDirByInfoVector(selection_table.infoVector, myFS);
 
 }
 
@@ -670,14 +688,36 @@ void testAppendDB(){
 	test_append.push_back(hw);
 	homeworkTable.appendDatabase(test_append, databaseFolder, homeworkSetPath);
 }
+void testFileInit(){
+	cout<<"1"<<endl;
+	userTable user_table(MAX_USER_NUMBER);
+	user_table.readDatabase(databaseFolder, userTablePath);
+	user_table.initInfoVector();
+	createUserDirByInfoVector(user_table.infoVector, fs);
+	cout<<"2"<<endl;
+
+	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+	selection_table.initInfoVector();
+	createCourseDirByInfoVector(selection_table.infoVector, fs);
+
+	std::cout<<fs.pathIsExist("/user/20010064")<<std::endl;;
+	string searchPath ;
+	while(1){
+		cout<<"input your search path"<<std::endl;
+		cin>>searchPath;
+		std::cout<<"Exist: "<<fs.pathIsExist(searchPath.c_str())<<std::endl;;
+	}
+}
 int main()
 {
 	// testAppendDB();
 	// testYYQFILE();
-	//while (1)
+	while (1)
 		//testPasswordAuthenticator();
 		testYYQFILE();
 		//test();
 	//teacherMode();
 	//test();
+
 }

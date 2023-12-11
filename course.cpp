@@ -33,7 +33,7 @@ Course2User Course2UserTable::initInfo(Course2User origin){
 }
 // 利用rsel_vector初始化infovector
 void Course2UserTable::initInfoVector(){
-	for (int i = 0; i < this->size; ++i ){ 
+	for (int i = 0; i < this->size; ++i) { 
 		Course2User sel = this->selectionVector[i];
 		Course2User sel_info = initInfo(sel);
 		this->infoVector.emplace_back(sel_info);

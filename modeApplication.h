@@ -15,6 +15,18 @@ struct passing_massage{
 	std::vector<homework> meassage_homework_vector;
 	std::string meassage_grade_stats;
 };
+enum ErrorCodes {
+    SUCCESS = 0,
+    ERROR_CODE_DUPLICATE_USER = 1,
+    ERROR_CODE_NO_USER = 2,
+    ERROR_CODE_IDENTITY = 3,
+    ERROR_CODE_NO_COURSE = 4,
+    ERROR_CODE_NO_HOMEWORK = 5,
+    ERROR_CODE_DUPLICATE_HOMEWORK = 6,
+    ERROR_CODE_WRONG_HOMEWORK = 7,
+    ERROR_CODE_DUPLICATE_REQUEST = 8,
+	ERROR_CODE_WRONG_REQUEST = 9
+};
 // #include "user_function.h"
 // #include "basic.h"
 /**
