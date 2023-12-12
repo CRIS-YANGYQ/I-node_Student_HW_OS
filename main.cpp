@@ -709,8 +709,19 @@ void testFileInit(){
 		std::cout<<"Exist: "<<fs.pathIsExist(searchPath.c_str())<<std::endl;;
 	}
 }
+void testBackup(){
+	// backupCopy* backup_copys = new backupCopy();
+	// backup_copys->createBackupCopy(localtime2__time(getLocaltime()));
+	// backup_copys->listEntries();
+	backupCopy backup_copys;
+	std::cout<<"create\n";
+	backup_copys.createBackupCopy(localtime2__time(getLocaltime()));
+	std::cout<<"listEntries\n";
+	backup_copys.listEntries();
+}
 int main()
 {
+	//testBackup();
 	// testAppendDB();
 	// testYYQFILE();
 	while (1)

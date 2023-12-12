@@ -178,3 +178,15 @@ std::vector<User> userTable::searchUserByName(std::string name) {
     }
     return result;
 }
+/**
+ * @brief 根据用户ID搜索用户名字
+ * @param id 用户ID
+ * @return std::string 用户名字
+ */
+std::string userTable::searchUserNameByID(std::string id){
+    std::vector<User> result = searchUserByID(id);
+    if (result.size() == 0) {
+        return "";
+    }
+    return result[0].name;
+}

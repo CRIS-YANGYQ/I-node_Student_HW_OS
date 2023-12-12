@@ -23,6 +23,7 @@
 #include <string>
 #include <sstream>
 #include <string>
+#include <tuple>
 #include "parameters.h"
 
 /**
@@ -53,10 +54,17 @@ struct __time {
      */
     friend std::ostream& operator << (std::ostream& out, const __time& temp_time);
 
+
+    friend bool operator<(const __time& lhs, const __time& rhs);
     /**
      * @brief 显示时间戳的函数
      */
     void displayTimestamp();
+    /**
+     * @brief 输出时间字符串
+     * @return std::string 字符串
+     */
+    std::string getTimeString();
 };
 
 /**

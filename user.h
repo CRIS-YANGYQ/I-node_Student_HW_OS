@@ -141,6 +141,12 @@ public:
      * @return 包含搜索结果的用户信息向量
      */
     std::vector<User> searchUserByName(std::string name);
+    /**
+     * @brief 根据用户ID搜索用户名字
+     * @param id 用户ID
+     * @return std::string 用户名字
+     */
+    std::string searchUserNameByID(std::string id);
 };
 
 #endif // !_USER_H

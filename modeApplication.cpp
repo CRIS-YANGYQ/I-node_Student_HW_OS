@@ -1389,14 +1389,14 @@ void markHomeworkInFile(std::string teacher_id, fileSystem& myFS) {
 		// const char* hw_element_path = concated_strings[2].c_str();
 		std::cout << hw_element_path << std::endl;
 
-		if (!myFS.pathIsExist(hw_element_path)){
+		if (myFS.pathIsExist(hw_element_path)){
 			// 首先创建文件夹路径
 			// myFS.createDirectory(hw_element_path, "admin");
 			// 提交作业
-			submit_homework(homework_ele, myFS);
+			set_Score(homework_ele, myFS);
 		}
 		else{
-			std::cout << "The folowing homework has already existed in i-node directory." << std::endl;
+			std::cout << "The folowing homework has not existed in i-node directory yet." << std::endl;
 			std::cout << homework_ele << std::endl;
 		}
 	}
@@ -1422,7 +1422,7 @@ passing_massage markHomeworkInFileWithServer(std::string teacher_id, std::vector
 		// const char* hw_element_path = concated_strings[2].c_str();
 		std::cout << hw_element_path << std::endl;
 
-		if (!myFS.pathIsExist(hw_element_path)){
+		if (myFS.pathIsExist(hw_element_path)){
 			// 首先创建文件夹路径
 			// myFS.createDirectory(hw_element_path, "admin");
 			// 提交作业
@@ -1431,7 +1431,7 @@ passing_massage markHomeworkInFileWithServer(std::string teacher_id, std::vector
 			set_Score(homework_ele, myFS);
 		}
 		else{
-			std::cout << "The folowing homework has already existed in i-node directory." << std::endl;
+			std::cout << "The folowing homework has not existed in i-node directory yet." << std::endl;
 			std::cout << homework_ele << std::endl;
 		}
 	}
