@@ -100,20 +100,24 @@ public:
      * @return 初始化后的 User 结构体
      */
     User initUser(std::vector<std::string> elements);
-
     /**
      * @brief 初始化数据库，将用户信息写入文件
      * @param destinationPath 目标路径
      * @param databaseName 数据库名称
      */
     void initDatabase(std::string destinationPath, std::string databaseName);
-
     /**
      * @brief 从数据库文件中读取用户信息
      * @param destinationPath 目标路径
      * @param databaseName 数据库名称
      */
     void readDatabase(std::string destinationPath, std::string databaseName);
+    /**
+     * @brief 写入数据库文件中用户信息
+     * @param destinationPath 目标路径
+     * @param databaseName 数据库名称
+     */
+    void updateDatabase(std::string destinationPath, std::string databaseName) ;
 
     /**
      * @brief 添加数据到数据库文件
@@ -123,6 +127,12 @@ public:
      */
     bool addDatabase(const User& newUser, std::string destinationPath, std::string databaseName) ;
 
+    /**
+     * @brief 从用户向量中删除具有指定用户 ID 的用户
+     * @param user_id 要删除的用户的 ID
+     * @return 如果成功删除用户，则返回 true；否则返回 false
+     */
+    bool deleteUserFromVector(std::string user_id);
     /**
      * @brief 显示用户信息向量
      */

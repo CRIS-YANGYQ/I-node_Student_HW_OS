@@ -9,7 +9,8 @@ const std::string requestTablePath = "requestsTable.csv";
 const std::string homeworkSetPath = "homework.csv";
 const std::string homeworkInfoSetPath = "homeworkInfo.csv";
 const std::string selectionTablePath = "selectionTable.csv";
-const std::string passwordsPath = "database/passwords.csv";
+const std::string passwordsPath = "passwords.csv";
+const std::string backupFilePath = "backup.csv";
 const std::string databaseFolder = "./database/";
 const std::string backupDatabasePath = "./backup/";
 #define MAX_HOMEWORK_NUMBER 200

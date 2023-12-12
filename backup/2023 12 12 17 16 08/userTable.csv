@@ -1,0 +1,31 @@
+user name,user kind,user id,user gender,user priority
+zhangsan,student,20210700,Male,1
+lisi,student,20210800,Male,1
+Doc Lee,teacher,20010060,Female,2
+wangwu,student,20210900,Female,1
+liuliu,student,20211000,Male,1
+Ms. Smith,teacher,20010061,Female,2
+zhaoliu,student,20211100,Female,1
+zhouqi,student,20211200,Male,1
+Mr. Johnson,teacher,20010062,Male,2
+sunba,student,20211300,Female,1
+chenjiu,student,20211400,Male,1
+Ms. Kim,teacher,20010063,Female,2
+zhushier,student,20211500,Female,1
+wangshiyi,student,20211600,Male,1
+Prof. Wang,teacher,20010064,Male,2
+luba,student,20211700,Female,1
+yanyi,student,20211800,Male,1
+Dr. Chen,teacher,20010065,Male,2
+xiaoba,student,20211900,Female,1
+yanger,student,20212000,Male,1
+Ms. Li,teacher,20010066,Female,2
+zhangbao,student,20212100,Female,1
+guanqi,student,20212200,Male,1
+Mr. Wu,teacher,20010067,Male,2
+liangba,student,20212300,Female,1
+haosan,student,20212400,Male,1
+Prof. Zhang,teacher,20010068,Male,2
+xiaoya,student,20212500,Female,1
+weier,student,20212600,Male,1
+haham,student,20212891,Female,1

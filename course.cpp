@@ -183,14 +183,146 @@ void Course2UserTable::readDatabase(std::string destinationPath, std::string dat
     csv_data.close();
 }
 
+void Course2UserTable::updateInfoDatabase(std::string destinationPath, std::string databaseName) {
+	// Check if the file exists, if not, create it
+    std::ifstream fileCheck(destinationPath + databaseName);
+    if (!fileCheck) {
+        std::ofstream createFile(destinationPath + databaseName);
+        if (!createFile) {
+            std::cerr << "Error: creating file failed" << std::endl;
+            std::exit(1);
+        }
+        createFile.close();
+    }
+    fileCheck.close();
 
+    std::ofstream outFile;
+    outFile.open(destinationPath + databaseName, std::ios::out | std::ios::trunc);
+
+    // Write header
+    outFile << "kind" << ','
+            << "course_name" << ','
+            << "course_id" << ','
+            << "user_name" << ','
+            << "user_id"
+            << std::endl;
+
+    // Write data
+    for (int i = 0; i < this->infoVector.size(); ++i) {
+        outFile << this->infoVector[i].kind << ','
+                << this->infoVector[i].course_name << ','
+                << this->infoVector[i].course_id << ','
+                << this->infoVector[i].user_name << ','
+                << this->infoVector[i].user_id
+                << std::endl;
+    }
+
+    outFile.close();
+}
+void Course2UserTable::updateDatabase(std::string destinationPath, std::string databaseName) {
+	// Check if the file exists, if not, create it
+    std::ifstream fileCheck(destinationPath + databaseName);
+    if (!fileCheck) {
+        std::ofstream createFile(destinationPath + databaseName);
+        if (!createFile) {
+            std::cerr << "Error: creating file failed" << std::endl;
+            std::exit(1);
+        }
+        createFile.close();
+    }
+    fileCheck.close();
+
+    std::ofstream outFile;
+    outFile.open(destinationPath + databaseName, std::ios::out | std::ios::trunc);
+
+    // Write header
+    outFile << "kind" << ','
+            << "course_name" << ','
+            << "course_id" << ','
+            << "user_name" << ','
+            << "user_id"
+            << std::endl;
+
+    // Write data
+    for (int i = 0; i < this->size; ++i) {
+        outFile << this->selectionVector[i].kind << ','
+                << this->selectionVector[i].course_name << ','
+                << this->selectionVector[i].course_id << ','
+                << this->selectionVector[i].user_name << ','
+                << this->selectionVector[i].user_id
+                << std::endl;
+    }
+
+    outFile.close();
+}
+/**
+ * @brief 将 Course2User 结构体的数据追加到指定路径和数据库文件名的文件中
+ * @param new_selection 要添加的 Course2User 数据
+ * @param destinationPath 目标路径
+ * @param databaseName 数据库文件名
+ * @return 如果成功将数据追加到文件中，则返回 true；否则返回 false
+ */
+bool Course2UserTable::addDatabase(const Course2User& new_selection, std::string destinationPath, std::string databaseName) {
+    std::ofstream outFile;
+    outFile.open(destinationPath + databaseName, std::ios::out | std::ios::app); // Open in append mode
+
+    if (!outFile.is_open()) {
+        std::cerr << "Error: opening file failed" << std::endl;
+        return false;
+    }
+
+    // Write the new data to the file kind,course_name,course_id,user_name,user_id
+    outFile << new_selection.kind << ','	
+			<< new_selection.course_name << ','
+            << new_selection.course_id << ','
+            << new_selection.user_name << ',' 
+            << new_selection.user_id << std::endl;
+
+    outFile.close();
+    return true;
+
+}
+bool Course2UserTable::deleteSelectionFromVector(std::string userID, std::string courseID){
+	for(int i = 0; i < size; i++){
+		if(this->selectionVector[i].user_id == userID && this->selectionVector[i].course_id == courseID){
+			this->selectionVector.erase(this->selectionVector.begin() + i);
+			this->size--;
+			return true;
+		}
+	}
+	return false;
+}
+bool Course2UserTable::deleteSelectionFromVector(Course2User selection_element){
+	for(int i = 0; i < size; i++){
+		if(this->selectionVector[i].user_id == selection_element.user_id && this->selectionVector[i].course_id == selection_element.course_id){
+			this->selectionVector.erase(this->selectionVector.begin() + i);
+			this->size--;
+			return true;
+		}
+	}
+	return false;
+}
 void Course2UserTable::displaySelectionVector() {
 	std::cout << "Selection Vector: " << std::endl;
 	for (int i = 0; i < size; ++i) {
 		std::cout << selectionVector[i];
 	}
 }
-
+/**
+ * @brief 根据课程ID搜索选课关系信息
+ * @param user_ID 用户ID
+ * @param course_id 课程ID
+ * @return 包含搜索结果的选课关系信息向量
+ */
+std::vector<Course2User> Course2UserTable::searchSelectionByUserIDandCourseID(std::string user_ID, std::string course_id){
+	std::vector<Course2User> result;
+	for(int i = 0; i < size; ++i){
+		if(this->selectionVector[i].user_id == user_ID && this->selectionVector[i].course_id == course_id){
+			result.emplace_back(this->selectionVector[i]);
+		}
+	}
+	return result;
+}
 std::vector<Course2User> Course2UserTable::searchSelectionByCourse(std::string course_id) {
 	std::vector<Course2User> result;
 	for (int i = 0; i < size; ++i) {

@@ -132,38 +132,40 @@ void homeworkSet::updateInfoDatabase(std::string destinationPath, std::string da
 
 // 读取必要info从csv
 void homeworkSet::loadInfoDatabase(std::string destinationPath, std::string databaseName) {
-	std::ifstream csv_data(destinationPath + databaseName, std::ios::in);
-	std::string line;
-	this->infoVector.clear();
-	if (!csv_data.is_open()) {
-		std::cout << "Error: opening file fail" << std::endl;
-		std::exit(1);
-	}
-
-	// ��ȡ������
-	std::getline(csv_data, line);
-	// ��ȡ����
-	while (std::getline(csv_data, line)) {
-		line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
-		std::istringstream lineStream;         // �������ַ���line���뵽�ַ���istringstream��
-		std::vector<std::string> words;        // ����һ���ַ�������
-		std::string word;
-		lineStream.clear();
-		lineStream.str(line);
-		words.clear();
-		while (std::getline(lineStream, word, ','))  // ���ַ�����sin�е��ַ�����field�ַ����У��Զ���Ϊ�ָ���
-		{
-			words.push_back(word);  // ��ÿһword����
-			// std::cout << word << " ";
-			// std::cout << atol(word.c_str());
-		}
-		this->infoVector.emplace_back(initHomework(words));
-		// std::cout << std::endl;
 
 
-	}
-	csv_data.close();
+    // Open the file for reading
+    std::ifstream csv_data(destinationPath + databaseName, std::ios::in);
+    std::string line;
+    this->infoVector.clear();
 
+    if (!csv_data.is_open()) {
+        std::cerr << "Error: opening file fail" << std::endl;
+        std::exit(1);
+    }
+
+    // 读取标题行
+    std::getline(csv_data, line);
+
+    // 读取数据行
+    while (std::getline(csv_data, line)) {
+        line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
+        std::istringstream lineStream;
+        std::vector<std::string> words;
+        std::string word;
+
+        lineStream.clear();
+        lineStream.str(line);
+        words.clear();
+
+        while (std::getline(lineStream, word, ',')) {
+            words.push_back(word);
+        }
+
+        this->infoVector.emplace_back(initHomework(words));
+    }
+
+    csv_data.close();
 }
 /**
 	* @brief ��ʼ����ҵ��Ϣ�ṹ��
@@ -296,8 +298,21 @@ void homeworkSet::readDatabase(std::string destinationPath, std::string database
 * @return void
 */
 void homeworkSet::updateDatabase(std::string destinationPath, std::string databaseName) {
+	// Check if the file exists, if not, create it
+    std::ifstream fileCheck(destinationPath + databaseName);
+    if (!fileCheck) {
+        std::ofstream createFile(destinationPath + databaseName);
+        if (!createFile) {
+            std::cerr << "Error: creating file failed" << std::endl;
+            std::exit(1);
+        }
+        createFile.close();
+    }
+    fileCheck.close();
+
+	// Open the file for reading
 	std::ofstream outFile;
-	std::cout << "homeworkSet DB path:" << destinationPath + databaseName << std::endl;
+	std::cout << "Update HomeworkSet DB path:" << destinationPath + databaseName << std::endl;
 	outFile.open(destinationPath + databaseName, std::ios::out | std::ios::trunc);
 		//д�������
 	outFile << "submit time" << ','
@@ -767,6 +782,18 @@ Request requestSet::initRequest(std::vector<std::string>elements) {
  * @return void
  */
 void requestSet::initDatabase(std::string destinationPath, std::string databaseName) {
+	// Check if the file exists, if not, create it
+    std::ifstream fileCheck(destinationPath + databaseName);
+    if (!fileCheck) {
+        std::ofstream createFile(destinationPath + databaseName);
+        if (!createFile) {
+            std::cerr << "Error: creating file failed" << std::endl;
+            std::exit(1);
+        }
+        createFile.close();
+    }
+    fileCheck.close();
+
 	std::ofstream outFile;
 	outFile.open(destinationPath + databaseName, std::ios::out | std::ios::trunc);
 	outFile << "request submitTime" << ','
@@ -865,6 +892,18 @@ void requestSet::readDatabase(std::string destinationPath, std::string databaseN
  * @return void
  */
 void requestSet::updateDatabase(std::string destinationPath, std::string databaseName) {
+	// Check if the file exists, if not, create it
+    std::ifstream fileCheck(destinationPath + databaseName);
+    if (!fileCheck) {
+        std::ofstream createFile(destinationPath + databaseName);
+        if (!createFile) {
+            std::cerr << "Error: creating file failed" << std::endl;
+            std::exit(1);
+        }
+        createFile.close();
+    }
+    fileCheck.close();
+
 	std::ofstream outFile;
 	outFile.open(destinationPath + databaseName, std::ios::out | std::ios::trunc);
 	// д�������

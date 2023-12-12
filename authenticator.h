@@ -34,7 +34,7 @@ public:
      * @brief 构造函数，可以选择从文件加载密码本
      * @param filename 密码本的文件名，默认为"database/passwords.csv"
      */
-    PasswordAuthenticator(std::string filename = "database/passwords.csv");
+    PasswordAuthenticator(std::string folderPath = "database/", std::string filename = "passwords.csv");
 
     /**
      * @brief 增加用户和密码到密码本
@@ -47,7 +47,6 @@ public:
      * @brief 输出所有用户ID和密码的键值对
      */
     void listEntries() const;
-
     /**
      * @brief 检查密码是否正确
      * @param userId 用户ID
@@ -60,13 +59,13 @@ public:
      * @brief 保存密码本到CSV文件
      * @param filename 要保存的文件名
      */
-    void savePasswordMapToFile(const std::string& filename);
+    void savePasswordMapToFile(std::string folderPath, const std::string& filename);
 
     /**
      * @brief 从CSV文件加载密码本
      * @param filename 要加载的文件名
      */
-    void loadPasswordMapFromFile(const std::string& filename);
+    void loadPasswordMapFromFile(std::string folderPath , const std::string& filename);
 
     /**
      * @brief 从CSV文件加载密码本
@@ -80,6 +79,6 @@ public:
  * @function userAuthentic
  * @brief 密码认证函数，返回密码是否正确的判断
  */
-bool userAuthentic(const std::string& enterdUserID, const std::string& enteredUserPwd = "");
+bool userAuthentic(const std::string& enterdUserID, const std::string& enteredUserPwd, std::string folderPath, std::string filename);
 
 #endif // !_AUTHENTICATOR_H

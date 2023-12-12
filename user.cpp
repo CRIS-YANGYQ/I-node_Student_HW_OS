@@ -96,7 +96,7 @@ void userTable::initDatabase(std::string destinationPath, std::string databaseNa
 void userTable::readDatabase(std::string destinationPath, std::string databaseName) {
     std::ifstream csv_data(destinationPath + databaseName, std::ios::in);
     std::string line;
-    std::cout << destinationPath + databaseName << std::endl;
+    std::cout << "Read User Database"<< destinationPath + databaseName << std::endl;
     if (!csv_data.is_open()) {
         std::cout << "Error: opening file fail" << std::endl;
         std::exit(1);
@@ -127,6 +127,53 @@ void userTable::readDatabase(std::string destinationPath, std::string databaseNa
     }
     this->size = count_hw;
     csv_data.close();
+}
+
+void userTable::updateDatabase(std::string destinationPath, std::string databaseName) {
+    // Check if the file exists, if not, create it
+    std::ifstream fileCheck(destinationPath + databaseName);
+    if (!fileCheck) {
+        std::ofstream createFile(destinationPath + databaseName);
+        if (!createFile) {
+            std::cerr << "Error: creating file failed" << std::endl;
+            std::exit(1);
+        }
+        createFile.close();
+    }
+    fileCheck.close();
+
+    std::ofstream outFile;
+    outFile.open(destinationPath + databaseName, std::ios::out | std::ios::trunc);
+
+    // Write CSV column names
+    outFile << "user name" << ',' << "user kind" << ',' << "user id" << ',' << "user gender" << ',' << "user priority" << std::endl;
+
+    // Write user information
+    for (int i = 0; i < this->size; ++i) {
+        outFile << userVector[i].name << ','
+                << userVector[i].kind << ','
+                << userVector[i].id << ','
+                << userVector[i].gender << ','
+                << userVector[i].priority
+                << std::endl;
+    }
+
+    outFile.close();
+}
+/**
+ * @brief 从用户向量中删除具有指定用户 ID 的用户
+ * @param user_id 要删除的用户的 ID
+ * @return 如果成功删除用户，则返回 true；否则返回 false
+ */
+bool userTable::deleteUserFromVector(std::string user_id){
+    for(int i = 0; i < this->size; ++i){
+        if(this->userVector[i].id == user_id){
+            this->userVector.erase(this->userVector.begin() + i);
+            this->size--;
+            return true;
+        }
+    }
+    return false;
 }
 // 显示用户信息向量
 void userTable::displayUserVector() {

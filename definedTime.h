@@ -80,4 +80,10 @@ std::string getLocaltime();
  */
 __time localtime2__time(std::string dateTimeStr);
 
+/**
+ * @brief 判断给定的时间结构体是否为空时间
+ * @param targetTime 待判断的时间结构体
+ * @return 如果时间结构体表示空时间，则返回 true；否则返回 false
+ */
+bool isNullTime(const __time& targetTime) ;
 #endif // !_DEFINEDTIME_H

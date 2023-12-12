@@ -25,7 +25,7 @@ struct homework {
 
 
     friend std::ostream& operator << (std::ostream& out, const homework& hw) {
-    out << "submit time: " << hw.submitTime
+    out << "submit time: " << hw.submitTime<<std::endl
         << "student_name: " << hw.student_name << "\tstudent_id: " << hw.student_id
         << "\tteacher_name: " << hw.teacher_name << "\tteacher_id: " << hw.teacher_id
         << "\tcourse_name: " << hw.course_name << "\tcourse_id: " << hw.course_id

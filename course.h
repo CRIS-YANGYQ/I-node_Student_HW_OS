@@ -136,12 +136,43 @@ public:
 	 * @param databaseName 数据库文件名
 	 */
 	void readDatabase(std::string destinationPath, std::string databaseName);
-
+	void updateInfoDatabase(std::string destinationPath, std::string databaseName);
+	void updateDatabase(std::string destinationPath, std::string databaseName);
+	/**
+	 * @brief 将 Course2User 结构体的数据追加到指定路径和数据库文件名的文件中
+	 * @param new_selection 要添加的 Course2User 数据
+	 * @param destinationPath 目标路径
+	 * @param databaseName 数据库文件名
+	 * @return 如果成功将数据追加到文件中，则返回 true；否则返回 false
+	 */
+	bool addDatabase(const Course2User& new_selection, std::string destinationPath, std::string databaseName);
 	/**
 	 * @brief 显示选课关系信息向量
 	 */
 	void displaySelectionVector();
 
+	/**
+	 * @brief 根据用户ID和课程ID删除选课关系信息
+	 * @param userID 用户ID
+	 * @param courseID 课程ID
+	 * @return 如果成功删除返回true，否则返回false
+	 */
+	bool deleteSelectionFromVector(std::string userID, std::string courseID);
+
+	/**
+	 * @brief 根据选课关系元素删除选课关系信息
+	 * @param selection_element 选课关系元素
+	 * @return 如果成功删除返回true，否则返回false
+	 */
+	bool deleteSelectionFromVector(Course2User selection_element);
+
+	/**
+	 * @brief 根据课程ID搜索选课关系信息
+	 * @param user_ID 用户ID
+	 * @param course_id 课程ID
+	 * @return 包含搜索结果的选课关系信息向量
+	 */
+	std::vector<Course2User> searchSelectionByUserIDandCourseID(std::string user_ID, std::string course_id);
 	/**
 	 * @brief 根据课程ID搜索选课关系信息
 	 * @param course_id 课程ID

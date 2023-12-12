@@ -97,7 +97,7 @@ void studentMode() {
 		cin >> enteredStudentID;
 		cout << "\t\t\tEnter user password:";
 		cin >> enteredStudentPwd;
-		if (userAuthentic(enteredStudentID, enteredStudentPwd)) {
+		if (userAuthentic(enteredStudentID, enteredStudentPwd, databaseFolder, passwordsPath)) {
 			break;
 		}
 	}
@@ -144,7 +144,7 @@ void teacherMode() {
 		cin >> enteredTeacherID;
 		cout << "\t\t\tEnter user password:";
 		cin >> enteredTeacherPwd;
-		if (userAuthentic(enteredTeacherID, enteredTeacherPwd)) {
+		if (userAuthentic(enteredTeacherID, enteredTeacherPwd, databaseFolder, passwordsPath)) {
 			break;
 		}
 	}
@@ -196,7 +196,7 @@ void administratorMode() {
 	}
 
 	// Download password book
-	authenticator.loadPasswordMapFromFile(passwordsPath);
+	authenticator.loadPasswordMapFromFile(databaseFolder, passwordsPath);
 
 	while (1) {
 		// Task selection
@@ -214,10 +214,10 @@ void administratorMode() {
 		char adminChoice;
 		cin >> adminChoice;
 
-switch (adminChoice) 
+	switch (adminChoice) 
 		{
 		case '0': {
-			authenticator.savePasswordMapToFile(passwordsPath);
+			authenticator.savePasswordMapToFile(databaseFolder, passwordsPath);
 			return;
 		}
 		case '1': {
@@ -284,7 +284,7 @@ switch (adminChoice)
 			cout << "Enter Password: ";
 			cin >> addPassword;
 			authenticator.addEntry(addUserId, addPassword);
-			authenticator.savePasswordMapToFile(passwordsPath);
+			authenticator.savePasswordMapToFile(databaseFolder, passwordsPath);
 			cout << "Successfull update for password: " << endl;
 			new_user.name = new_user.name;
 			new_user.id = new_user.id;
@@ -311,7 +311,7 @@ switch (adminChoice)
 			break;
 		}
 		case '4': {
-			authenticator.savePasswordMapToFile(passwordsPath);
+			authenticator.savePasswordMapToFile(databaseFolder, passwordsPath);
 			cout << "Commit the changes successfully" << endl;
 			break;
 		}
@@ -551,7 +551,7 @@ void transferCSV2INODE(fileSystem &myFS){
 }
 
 
-void testWLFILE() {
+void testWLFILE(){
     //提交获取作业内容测试
     homework myHomework;
     myHomework.student_name = "John Doe";
@@ -662,7 +662,6 @@ void testWLFILE() {
     }
 }
 
-
 void testYYQFILE(){
 	transferCSV2INODE(fs);
 
@@ -713,15 +712,96 @@ void testBackup(){
 	// backupCopy* backup_copys = new backupCopy();
 	// backup_copys->createBackupCopy(localtime2__time(getLocaltime()));
 	// backup_copys->listEntries();
+
+	// backupCopy backup_copys;
+	// std::cout<<"create\n";
+	// backup_copys.createBackupCopy(localtime2__time(getLocaltime()));
+	// std::cout<<"listEntries\n";
+	// backup_copys.listEntries();
+	// backup_copys.saveBackupCopyToFile(databaseFolder, backupFilePath);
+
+	// backupCopy backup_copys;
+	// std::cout<<"load\n";
+	// backup_copys.loadBackupCopyFromFile(databaseFolder, backupFilePath);
+	// std::cout<<"list\n";
+	// backup_copys.listEntries();
+
+	// backupCopy backup_copys;
+	// std::cout<<"load\n";
+	// backup_copys.loadBackupCopyFromFile(databaseFolder, backupFilePath);
+	// std::cout<<"list\n";
+    // backup_copys.listEntries();
+	// std::cout<<"trace\n";
+	// __time trace_time; //2023 12 12 16 1 42
+	// trace_time.year = 2023;
+	// trace_time.month = 12;
+	// trace_time.date = 12;
+	// trace_time.hour = 16;
+	// trace_time.minute = 1;
+	// trace_time.second = 42;
+	// backup_copys.tracebackDatabse(trace_time, databaseFolder, backupFilePath);
+
 	backupCopy backup_copys;
-	std::cout<<"create\n";
-	backup_copys.createBackupCopy(localtime2__time(getLocaltime()));
-	std::cout<<"listEntries\n";
-	backup_copys.listEntries();
+	std::cout<<"load\n";
+	backup_copys.loadBackupCopyFromFile(databaseFolder, backupFilePath);
+	std::cout<<"list\n";
+    backup_copys.listEntries();
+	std::cout<<"showEntries\n";
+	__time target_time = backup_copys.showEntriesAndWait();
+	if(isNullTime(target_time)){
+		std::cout<<"null time"<<std::endl;
+	}
+	else{
+		std::cout<<"traceback\n";
+		std::cout<<"trace back to time: "<<target_time<<std::endl;		
+		backup_copys.tracebackDatabse(target_time, databaseFolder, backupFilePath);
+	}
+}
+void testDelete_AddSelection(){
+	// 用户删除
+	cout<<"1"<<endl;
+	userTable user_table(MAX_USER_NUMBER);
+	user_table.readDatabase(databaseFolder, userTablePath);
+	std::cout<<"Before "<<(user_table.searchUserByID("20212600").size())<<std::endl;
+	user_table.deleteUserFromVector("20212600");
+	std::cout<<"After "<<(user_table.searchUserByID("20212600").size())<<std::endl;
+
+	// 选课删除
+	cout<<"2"<<endl;
+	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+	std::cout<<"Before "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "DL0719").size())<<std::endl;
+	selection_table.deleteSelectionFromVector("20211400", "DL0719");
+	std::cout<<"After "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "DL0719").size())<<std::endl;
+
+	// 插入选课
+	cout<<"3"<<endl;
+	std::cout<<"Insert Before "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size())<<std::endl;
+	// 初始化选课元素
+	Course2User sel_ele;
+	sel_ele.kind = 1;
+	sel_ele.user_name = "chenjiu";
+	sel_ele.user_id = "20211400";
+	sel_ele.course_name = "Compilation Principal";
+	sel_ele.course_id = "CP0720";
+	// 更新到csv
+	selection_table.addDatabase(sel_ele, databaseFolder, selectionTablePath);
+	// 重新读取csv
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+	std::cout<<"Insert After "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size())<<std::endl;
+
+	// 尝试删除
+	selection_table.deleteSelectionFromVector("20211400", "CP0720");
+	std::cout<<"Delete After "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size())<<std::endl;
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+	std::cout<<"Read After "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size())<<std::endl;
+
 }
 int main()
 {
-	//testBackup();
+
+	// testDelete_AddSelection();
+	// testBackup();
 	// testAppendDB();
 	// testYYQFILE();
 	while (1)

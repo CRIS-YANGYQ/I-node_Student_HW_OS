@@ -538,7 +538,7 @@ passing_massage submitHomeworkInFileWithServer(std::string student_id, std::vect
                 break;
             }
 		}
-		if ((!homework_id_exist(submit_hw.hw_id, myFS)) && isLegal_local) {
+		if (homework_id_exist(submit_hw.hw_id, myFS) || !isLegal_local) {
 			message_request.err_code = ERROR_CODE_DUPLICATE_HOMEWORK;
 			return message_request;
 		}

@@ -1,9 +1,9 @@
-// authenticator.cpp
 #include "authenticator.h"
+// authenticator.cpp
 //std::string password_filename = passwordsPath;
 // 构造函数，可以选择从文件加载密码本
-PasswordAuthenticator::PasswordAuthenticator(std::string filename) {
-	loadPasswordMapFromFile(filename);
+PasswordAuthenticator::PasswordAuthenticator(std::string folderPath, std::string filename) {
+	loadPasswordMapFromFile(folderPath, filename);
 }
 
 // 增加用户和密码到密码本
@@ -28,8 +28,8 @@ bool PasswordAuthenticator::authenticate(const std::string& userId, const std::s
 }
 
 // 保存密码本到CSV文件
-void PasswordAuthenticator::savePasswordMapToFile(const std::string& filename) {
-	std::ofstream file(filename);
+void PasswordAuthenticator::savePasswordMapToFile(std::string folderPath, const std::string& filename) {
+	std::ofstream file(folderPath + filename);
 	if (file.is_open()) {
 		for (const auto& entry : passwordMap) {
 			file << entry.first << ',' << entry.second << std::endl;
@@ -42,8 +42,20 @@ void PasswordAuthenticator::savePasswordMapToFile(const std::string& filename) {
 }
 
 // 从CSV文件加载密码本
-void PasswordAuthenticator::loadPasswordMapFromFile(const std::string& filename) {
-    std::ifstream file(filename);
+void PasswordAuthenticator::loadPasswordMapFromFile(std::string folderPath, const std::string& filename) {
+	// Check if the file exists, if not, create it
+    std::ifstream fileCheck(folderPath + filename);
+    if (!fileCheck) {
+        std::ofstream createFile(folderPath + filename);
+        if (!createFile) {
+            std::cerr << "Error: creating file failed" << std::endl;
+            std::exit(1);
+        }
+        createFile.close();
+    }
+    fileCheck.close();
+
+    std::ifstream file(folderPath + filename);
     if (file.is_open()) {
         passwordMap.clear(); // 清空已有的密码映射
 
@@ -88,20 +100,7 @@ void PasswordAuthenticator::loadPasswordMapFromFile(const std::string& filename)
 // 		std::cerr << "Unable to open the file for loading." << std::endl;
 // 	}
 // }
-bool userAuthentic(const std::string& enterdUserID, const std::string& enteredUserPwd) {
-	// 载入最新密码本
-	PasswordAuthenticator authenticator;
-	authenticator.loadPasswordMapFromFile(passwordsPath);
-	if (authenticator.authenticate(enterdUserID, enteredUserPwd)) {
-		std::cout << "authentication successful." << std::endl;
-		return true;
-	}
-	else {
-		std::cout << "authentication failed." << std::endl;
-		return false;
-	}
 
-}
 void PasswordAuthenticator::modifyEntry(const std::string& userId, const std::string& newPassword) {
 	auto it = passwordMap.find(userId);
 	if (it != passwordMap.end()) {
@@ -112,4 +111,19 @@ void PasswordAuthenticator::modifyEntry(const std::string& userId, const std::st
 	else {
 		std::cerr << "User ID " << userId << " not found. Unable to modify password." << std::endl;
 	}
+}
+
+bool userAuthentic(const std::string& enterdUserID, const std::string& enteredUserPwd, std::string folderPath, std::string filename) {
+	// 载入最新密码本
+	PasswordAuthenticator authenticator;
+	authenticator.loadPasswordMapFromFile(folderPath,filename);
+	if (authenticator.authenticate(enterdUserID, enteredUserPwd)) {
+		std::cout << "authentication successful." << std::endl;
+		return true;
+	}
+	else {
+		std::cout << "authentication failed." << std::endl;
+		return false;
+	}
+
 }
