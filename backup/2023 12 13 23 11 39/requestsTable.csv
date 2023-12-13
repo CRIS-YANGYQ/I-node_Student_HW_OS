@@ -1,0 +1,91 @@
+submit time,teacher name,teacher id,course name,course id,title,id,content
+2023 9 27 12 0 0,Doc Lee,20010060,OS,CS0710,OS_Homework_Intro,OS_hw1,URL_1560
+2023 10 20 12 0 0,Doc Lee,20010060,OS,CS0710,OS_Homework_Chapter3_File Management,OS_hw2,URL_1880
+2023 11 10 12 0 0,Doc Lee,20010060,OS,CS0710,OS_Homework_Chapter6_Memory Management,OS_hw3,URL_1992
+2023 9 30 12 30 0,Doc Lee,20010060,OS,CS0710,OS_Homework_Process Scheduling,OS_hw4,URL_1625
+2023 10 25 15 45 0,Doc Lee,20010060,OS,CS0710,OS_Homework_File Systems,OS_hw5,URL_1743
+2023 11 15 10 0 0,Doc Lee,20010060,OS,CS0710,OS_Homework_Security,OS_hw6,URL_2087
+2023 9 28 9 30 0,Doc Lee,20010060,OS,CS0710,OS_Homework_Input Output,OS_hw7,URL_1765
+2023 10 22 14 15 0,Doc Lee,20010060,OS,CS0710,OS_Homework_Networking,OS_hw8,URL_1872
+2023 11 12 11 30 0,Doc Lee,20010060,OS,CS0710,OS_Homework_Error Handling,OS_hw9,URL_1945
+2023 9 29 13 45 0,Doc Lee,20010060,OS,CS0710,OS_Homework_Command Line,OS_hw10,URL_1650
+2023 9 28 10 0 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_Intro,DB_hw1,URL_1761
+2023 10 21 11 30 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_SQL Basics,DB_hw2,URL_1984
+2023 11 11 14 0 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_Indexing,DB_hw3,URL_2106
+2023 9 29 12 15 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_Transactions,DB_hw4,URL_1678
+2023 10 24 13 45 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_Normalization,DB_hw5,URL_1822
+2023 11 14 16 30 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_NoSQL,DB_hw6,URL_2023
+2023 9 30 14 45 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_Joins,DB_hw7,URL_1689
+2023 10 23 9 0 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_Views,DB_hw8,URL_1810
+2023 11 13 10 15 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_Optimization,DB_hw9,URL_1971
+2023 9 27 15 0 0,Ms. Smith,20010061,Database,DB0711,Database_Homework_Backup and Recovery,DB_hw10,URL_1543
+2023 9 29 14 30 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_Intro,ALG_hw1,URL_1698
+2023 10 22 16 0 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_Sorting,ALG_hw2,URL_1836
+2023 11 12 9 30 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_Searching,ALG_hw3,URL_1964
+2023 9 30 16 45 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_Graph Algorithms,ALG_hw4,URL_1714
+2023 10 25 10 30 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_Dynamic Programming,ALG_hw5,URL_1850
+2023 11 15 13 15 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_Greedy Algorithms,ALG_hw6,URL_2072
+2023 9 28 11 15 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_Tree Algorithms,ALG_hw7,URL_1749
+2023 10 21 13 45 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_String Algorithms,ALG_hw8,URL_1878
+2023 11 11 10 0 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_Complexity Analysis,ALG_hw9,URL_1999
+2023 9 27 11 30 0,Mr. Johnson,20010062,Algorithms,ALG0712,Algorithms_Homework_Backtracking,ALG_hw10,URL_1532
+2023 9 30 8 0 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_Intro,NTW_hw1,URL_1627
+2023 10 23 14 30 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_OSI Model,NTW_hw2,URL_1763
+2023 11 13 12 0 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_TCP IP Protocol,NTW_hw3,URL_1973
+2023 9 27 9 45 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_Routing,NTW_hw4,URL_1555
+2023 10 22 11 0 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_Subnetting,NTW_hw5,URL_1835
+2023 11 12 14 30 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_Security,NTW_hw6,URL_1962
+2023 9 28 13 0 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_VLAN,NTW_hw7,URL_1751
+2023 10 21 15 15 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_Network Devices,NTW_hw8,URL_1887
+2023 11 11 8 30 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_Wireless Networking,NTW_hw9,URL_1996
+2023 9 29 10 45 0,Ms. Kim,20010063,Networks,NTW0713,Networks_Homework_QoS,NTW_hw10,URL_1680
+2023 9 28 14 45 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_Intro,ML_hw1,URL_1775
+2023 10 21 9 0 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_Supervised Learning,ML_hw2,URL_1874
+2023 11 11 10 15 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_Unsupervised Learning,ML_hw3,URL_1998
+2023 9 29 9 30 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_Deep Learning,ML_hw4,URL_1652
+2023 10 24 10 45 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_Natural Language Processing,ML_hw5,URL_1824
+2023 11 14 13 0 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_Reinforcement Learning,ML_hw6,URL_2031
+2023 9 30 11 15 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_Feature Engineering,ML_hw7,URL_1769
+2023 10 23 8 30 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_Model Evaluation,ML_hw8,URL_1817
+2023 11 13 9 45 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_Hyperparameter Tuning,ML_hw9,URL_1968
+2023 9 27 10 0 0,Prof. Wang,20010064,Machine Learning,ML0714,ML_Homework_AI Ethics,ML_hw10,URL_1537
+2023 9 29 11 30 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_Intro,WEB_hw1,URL_1672
+2023 10 22 14 45 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_HTML_CSS,WEB_hw2,URL_1812
+2023 11 12 13 15 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_JavaScript,WEB_hw3,URL_1941
+2023 9 30 12 30 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_Responsive Design,WEB_hw4,URL_1719
+2023 10 25 13 45 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_Backend Development,WEB_hw5,URL_1855
+2023 11 15 16 0 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_RESTful APIs,WEB_hw6,URL_2068
+2023 9 28 9 15 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_Database Integration,WEB_hw7,URL_1759
+2023 10 21 10 30 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_Security,WEB_hw8,URL_1884
+2023 11 11 14 45 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_Deployment,WEB_hw9,URL_2003
+2023 9 27 12 15 0,Dr. Chen,20010065,Web Development,WEB0715,Web_Homework_Version Control,WEB_hw10,URL_1548
+2023 9 30 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework1,DS_hw1,URL_2000
+2023 10 15 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework2,DS_hw2,URL_2100
+2023 11 5 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework3,DS_hw3,URL_2200
+2023 11 20 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework4,DS_hw4,URL_2300
+2023 12 5 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework5,DS_hw5,URL_2400
+2023 12 20 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework6,DS_hw6,URL_2500
+2024 1 5 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework7,DS_hw7,URL_2600
+2024 1 20 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework8,DS_hw8,URL_2700
+2024 2 5 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework9,DS_hw9,URL_2800
+2024 2 20 12 0 0,Doc Lee,20010060,Data Science,DS0716,DS_Homework10,DS_hw10,URL_2900
+2023 10 3 11 45 0,Mr. Wu,20010067,Computer Graphics,CG0717,CG_HW_Intro,CG_hw1,URL_1566
+2023 11 1 12 30 0,Mr. Wu,20010067,Computer Graphics,CG0717,CG_HW_2D_Graphics,CG_hw2,URL_1886
+2023 11 1 12 31 0,Mr. Wu,20010067,Computer Graphics,CG0717,CG_HW_3D_Graphics,CG_hw3,URL_2292
+2023 11 1 12 32 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework1,SE_hw1,URL_3000
+2023 11 1 12 33 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework2,SE_hw2,URL_3100
+2023 11 1 12 34 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework3,SE_hw3,URL_3200
+2023 11 1 12 35 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework4,SE_hw4,URL_3300
+2023 11 1 12 36 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework5,SE_hw5,URL_3400
+2023 11 1 12 37 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework6,SE_hw6,URL_3500
+2023 11 1 12 38 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework7,SE_hw7,URL_3600
+2023 11 1 12 39 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework8,SE_hw8,URL_3700
+2023 11 1 12 40 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework9,SE_hw9,URL_3800
+2023 11 1 12 41 0,Ms. Smith,20010061,Software Engineering,SE0718,SE_Homework10,SE_hw10,URL_3900
+2023 12 1 17 0 15,Doc Lee,20010060,OS,CS0710,extra,OS_extra,homework update
+2023 12 1 17 7 15,Doc Lee,20010060,OS,CS0710,ESSAY_OF_PROJ,OS_extra2,PLEASE_ENTER_THE_ESSAY_UNDER_MY_REQUEST
+2023 12 2 21 50 4,Doc Lee,20010060,OS,CS0710,TEST4LINUX,OS_hw11,NIUMO
+2023 12 3 16 15 22,Doc Lee,20010060,OS,CS0710,HOW_TO_USE_INODE_FOR_HIHGER_SPEED,OS_EXTRA_ESSAY_1,INODE_GREAT
+2023 12 10 16 12 46,Doc Lee,20010060,OS,CS0710,WL_1210test,OS_hw_15,hwlwlwl
+2023 12 10 11 56 41,hahaha,t789012,Project Introduntion,PI0722,How2Project,PI_hw1,URL_8001
+2023 12 12 21 12 23,hahaha,t789012,Data Mining,DM0723,Data_Classification,DM_hw1,URL_8201

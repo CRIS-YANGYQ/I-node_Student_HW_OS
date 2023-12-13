@@ -26,7 +26,11 @@ enum ErrorCodes {
     ERROR_CODE_DUPLICATE_HOMEWORK = 6,
     ERROR_CODE_WRONG_HOMEWORK = 7,
     ERROR_CODE_DUPLICATE_REQUEST = 8,
-	ERROR_CODE_WRONG_REQUEST = 9
+	ERROR_CODE_WRONG_REQUEST = 9,
+	ERROR_CODE_FAIL_DELETE_USER = 10,
+	ERROR_CODE_FAIL_DELETE_USER_COURSE = 11,
+	ERROR_CODE_FAIL_DELETE_HOMEWORK = 12,
+	ERROR_CODE_FAIL_DELETE_REQUEST = 13
 };
 // #include "user_function.h"
 // #include "basic.h"
@@ -169,6 +173,53 @@ void markHomeworkInFile(std::string teacher_id, fileSystem &fs);
  * @return passing_massage_request 包含批改结果信息的结构体。
  */
 passing_massage markHomeworkInFileWithServer(std::string teacher_id, std::vector<homework> submit_homework_vector, fileSystem& myFS);
+/**
+ * @brief 从文件系统和作业表中删除具有指定用户 ID 的学生
+ * @param user_id 要删除的学生的用户 ID
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteStudentInfileWithServer(std::string user_id, fileSystem& myFS);
+
+/**
+ * @brief 从文件系统和请求表中删除具有指定用户 ID 的教师
+ * @param user_id 要删除的教师的用户 ID
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteTeacherInfileWithServer(std::string user_id, fileSystem& myFS);
+/**
+ * @brief 从文件系统和作业表中删除具有指定用户 ID 和课程 ID 的学生的课程
+ * @param user_id 要删除课程的学生的用户 ID
+ * @param course_id 要删除的课程的课程 ID
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteStudentCourseInfileWithServer(std::string user_id, std::string course_id, fileSystem& myFS);
+/**
+ * @brief 从文件系统和请求表中删除具有指定用户 ID 和课程 ID 的教师的课程
+ * @param user_id 要删除课程的教师的用户 ID
+ * @param course_id 要删除的课程的课程 ID
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteTeacherCourseInfileWithServer(std::string user_id, std::string course_id, fileSystem& myFS);
+
+/**
+ * @brief 从文件系统和作业表中删除具有指定作业信息的作业
+ * @param deleteHW 要删除的作业信息
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteHomeworkInfileWithServer(homework deleteHW, fileSystem& myFS);
+
+/**
+ * @brief 从文件系统和请求表中删除具有指定请求信息的请求
+ * @param deleteRequest 要删除的请求信息
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteRequestInfileWithServer(Request deleteRequest, fileSystem& myFS);
 /**
  * @function adminReadHomeworkReqest
  * @brief 管理员读取老师发布的作业要求

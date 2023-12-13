@@ -46,5 +46,6 @@ submit time,student name,student id,teacher name,teacher id,course name,course i
 2023 12 4 21 59 40,zhangsan,20210700,Ms. Kim,20010063,Networks,NTW0713,hahanetwork,NTW_hw4,CS0710007,Network_sup,0,0
 2023 12 4 22 2 40,zhangsan,20210700,Ms. Smith,20010061,Database,DB0711,DB_YYQ,DB_hw7,CS0710008,DB_WOW,0,0
 2023 12 4 22 3 47,zhangsan,20210700,Doc Lee,20010060,OS,CS0710,ESSAY_YYQ,OS_extra2,CS0710009,ESSAY4UONLY,0,0
-2023 12 5 12 15 16,haha,s123456,hahaha,t789012,Computer Science Introduction,CS101,Homework Assignment 1,testRequest,testHWID,Append Test,0,0
-2023 12 5 17 46 27,haha,s123456,hahaha,t789012,Computer Science Introduction,CS101,Homework Assignment 1,testRequest,testHWID,Append Test,0,0
+2023 12 5 12 15 16,haha,s123456,Doc Lee,20010060,OS,CS0710,Homework Assignment 1,testRequest,testHWID1,Append Test,0,0
+2023 12 5 17 46 27,haha,s123456,hahaha,t789012,Computer Science Introduction,CS101,Homework Assignment 2,testRequest,testHWID2,Append Test,0,0
+2023 12 13 11 30 27,haha,s123456,hahaha,t789012,Computer Science Introduction,CS101,Homework Assignment 3,testRequest,testHWID3,Append Test,0,0

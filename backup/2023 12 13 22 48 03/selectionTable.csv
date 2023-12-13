@@ -1,0 +1,6 @@
+kind,course_name,course_id,user_name,user_id
+1,OS,CS0710,Doc Lee,20010060
+0,OS,CS0710,zhangsan,20210700
+0,OS,CS0710,lisi,20210800
+1,Database,DB0711,Ms. Smith,20010061
+0,Database,DB0711,zhangsan,20210700

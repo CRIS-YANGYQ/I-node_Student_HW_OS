@@ -282,25 +282,80 @@ bool Course2UserTable::addDatabase(const Course2User& new_selection, std::string
     return true;
 
 }
-bool Course2UserTable::deleteSelectionFromVector(std::string userID, std::string courseID){
-	for(int i = 0; i < size; i++){
-		if(this->selectionVector[i].user_id == userID && this->selectionVector[i].course_id == courseID){
-			this->selectionVector.erase(this->selectionVector.begin() + i);
-			this->size--;
+/**
+ * @brief Checks if a given user ID exists in the database.
+ *
+ * @param user_id The ID of the user.
+ * @return bool Returns true if the user ID exists, false otherwise.
+ */
+bool Course2UserTable::isUserIDexists(std::string user_id){
+	for(int i = 0; i < this->size; ++i){
+		if(this->selectionVector[i].user_id == user_id){
 			return true;
 		}
 	}
 	return false;
 }
-bool Course2UserTable::deleteSelectionFromVector(Course2User selection_element){
-	for(int i = 0; i < size; i++){
-		if(this->selectionVector[i].user_id == selection_element.user_id && this->selectionVector[i].course_id == selection_element.course_id){
-			this->selectionVector.erase(this->selectionVector.begin() + i);
-			this->size--;
+/**
+ * @brief Checks if a given selection ID exists in the database.
+ *
+ * @param user_id The ID of the user.
+ * @param course_id The ID of the course
+ * @return bool Returns true if the selection ID exists, false otherwise.
+ */
+bool Course2UserTable::isSelectionIDexists(std::string user_id, std::string course_id){
+	for(int i = 0; i < this->size; ++i){
+		if(this->selectionVector[i].user_id == user_id && this->selectionVector[i].course_id == course_id){
 			return true;
 		}
 	}
 	return false;
+}
+/**
+ * @brief 根据用户ID删除选课关系信息
+ * @param userID 用户ID
+ * @return 如果成功删除返回true，否则返回false
+ */
+bool Course2UserTable::deleteSelectionFromVector(std::string userID) {
+    // 使用迭代器遍历容器
+	bool tmp = false;
+	
+    for (auto it = this->selectionVector.begin(); it != this->selectionVector.end();) {
+        // 检查关系式
+        if (it->user_id == userID) {
+            // 删除满足条件的元素，并更新迭代器
+            it = this->selectionVector.erase(it);
+            this->size--;
+			tmp = true;
+        } else {
+            // 没有删除元素时，继续迭代
+            ++it;
+        }
+    }
+    return tmp;
+}
+bool Course2UserTable::deleteSelectionFromVector(std::string userID, std::string courseID){
+	bool tmp = false;
+	for(int i = 0; i < size; i++){
+		if(this->selectionVector[i].user_id == userID && this->selectionVector[i].course_id == courseID){
+			this->selectionVector.erase(this->selectionVector.begin() + i);
+			this->size--;
+			tmp = true;
+		}
+	}
+	return tmp;
+}
+
+bool Course2UserTable::deleteSelectionFromVector(Course2User selection_element){
+	bool tmp = false;
+	for(int i = 0; i < size; i++){
+		if(this->selectionVector[i].user_id == selection_element.user_id && this->selectionVector[i].course_id == selection_element.course_id){
+			this->selectionVector.erase(this->selectionVector.begin() + i);
+			this->size--;
+			tmp = true;
+		}
+	}
+	return tmp;
 }
 void Course2UserTable::displaySelectionVector() {
 	std::cout << "Selection Vector: " << std::endl;

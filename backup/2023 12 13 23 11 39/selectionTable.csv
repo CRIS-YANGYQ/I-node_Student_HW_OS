@@ -1,0 +1,95 @@
+kind,course_name,course_id,user_name,user_id
+1,OS,CS0710,Doc Lee,20010060
+0,OS,CS0710,zhangsan,20210700
+0,OS,CS0710,lisi,20210800
+0,OS,CS0710,haha,s123456
+1,Database,DB0711,Ms. Smith,20010061
+0,Database,DB0711,zhangsan,20210700
+0,Database,DB0711,lisi,20210800
+0,Database,DB0711,wangwu,20210900
+0,Database,DB0711,liuliu,20211000
+0,Database,DB0711,zhaoliu,20211100
+0,Database,DB0711,zhouqi,20211200
+0,Database,DB0711,sunba,20211300
+0,Database,DB0711,chenjiu,20211400
+0,Database,DB0711,zhushier,20211500
+0,Database,DB0711,wangshiyi,20211600
+1,Algorithms,ALG0712,Mr. Johnson,20010062
+0,Algorithms,ALG0712,zhangsan,20210700
+0,Algorithms,ALG0712,lisi,20210800
+0,Algorithms,ALG0712,wangwu,20210900
+0,Algorithms,ALG0712,liuliu,20211000
+0,Algorithms,ALG0712,zhaoliu,20211100
+0,Algorithms,ALG0712,zhouqi,20211200
+0,Algorithms,ALG0712,sunba,20211300
+0,Algorithms,ALG0712,chenjiu,20211400
+0,Algorithms,ALG0712,zhushier,20211500
+0,Algorithms,ALG0712,wangshiyi,20211600
+1,Networks,NTW0713,Ms. Kim,20010063
+0,Networks,NTW0713,zhangsan,20210700
+0,Networks,NTW0713,lisi,20210800
+0,Networks,NTW0713,wangwu,20210900
+0,Networks,NTW0713,liuliu,20211000
+0,Networks,NTW0713,zhaoliu,20211100
+0,Networks,NTW0713,zhouqi,20211200
+0,Networks,NTW0713,sunba,20211300
+0,Networks,NTW0713,chenjiu,20211400
+0,Networks,NTW0713,zhushier,20211500
+0,Networks,NTW0713,wangshiyi,20211600
+1,Machine Learning,ML0714,Prof. Wang,20010064
+0,Machine Learning,ML0714,zhangsan,20210700
+0,Machine Learning,ML0714,lisi,20210800
+0,Machine Learning,ML0714,wangwu,20210900
+0,Machine Learning,ML0714,liuliu,20211000
+0,Machine Learning,ML0714,zhaoliu,20211100
+0,Machine Learning,ML0714,zhouqi,20211200
+0,Machine Learning,ML0714,sunba,20211300
+0,Machine Learning,ML0714,chenjiu,20211400
+0,Machine Learning,ML0714,zhushier,20211500
+0,Machine Learning,ML0714,wangshiyi,20211600
+1,Web Development,WEB0715,Dr. Chen,20010065
+0,Web Development,WEB0715,zhangsan,20210700
+0,Web Development,WEB0715,lisi,20210800
+0,Web Development,WEB0715,wangwu,20210900
+0,Web Development,WEB0715,liuliu,20211000
+0,Web Development,WEB0715,zhaoliu,20211100
+0,Web Development,WEB0715,zhouqi,20211200
+0,Web Development,WEB0715,sunba,20211300
+0,Web Development,WEB0715,chenjiu,20211400
+0,Web Development,WEB0715,zhushier,20211500
+0,Web Development,WEB0715,wangshiyi,20211600
+1,Data Science,DS0716,Ms. Li,20010066
+0,Data Science,DS0716,zhangsan,20210700
+0,Data Science,DS0716,lisi,20210800
+0,Data Science,DS0716,wangwu,20210900
+0,Data Science,DS0716,liuliu,20211000
+0,Data Science,DS0716,zhaoliu,20211100
+0,Data Science,DS0716,zhouqi,20211200
+0,Data Science,DS0716,sunba,20211300
+0,Data Science,DS0716,chenjiu,20211400
+0,Data Science,DS0716,zhushier,20211500
+0,Data Science,DS0716,wangshiyi,20211600
+1,Computer Graphics,CG0717,Mr. Wu,20010067
+0,Computer Graphics,CG0717,zhangsan,20210700
+0,Computer Graphics,CG0717,lisi,20210800
+0,Computer Graphics,CG0717,wangwu,20210900
+0,Computer Graphics,CG0717,liuliu,20211000
+0,Computer Graphics,CG0717,zhaoliu,20211100
+0,Computer Graphics,CG0717,zhouqi,20211200
+0,Computer Graphics,CG0717,sunba,20211300
+0,Computer Graphics,CG0717,chenjiu,20211400
+0,Computer Graphics,CG0717,zhushier,20211500
+0,Computer Graphics,CG0717,wangshiyi,20211600
+1,Software Engineering,SE0718,Prof. Zhang,20010068
+0,Software Engineering,SE0718,zhangsan,20210700
+0,Software Engineering,SE0718,lisi,20210800
+0,Software Engineering,SE0718,wangwu,20210900
+0,Software Engineering,SE0718,liuliu,20211000
+0,Software Engineering,SE0718,zhaoliu,20211100
+1,DeepLearning,DL0719,chenjiu,20211400
+0,Computer Graphics,CG0717,haha,s123456
+1,Compilation Principal,CP0720,chenjiu,20211400
+0,Compilation Principal,CP0720,haha,s123456
+0,Software Engineering,SE0718,haha,s123456
+1,Project Introduntion,PI0722,hahaha,t789012
+1,Data Mining,DM0723,hahaha,t789012

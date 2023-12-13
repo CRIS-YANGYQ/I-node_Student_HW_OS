@@ -139,7 +139,8 @@ private:
 	std::vector<homework> homeworkVector;  // 存储作业信息的向量
 public:
 	std::vector<homework> infoVector; // 存储作业索引信息student_id teacher_id course_id hw_id 其余为空
-
+	int getCapacity() ;
+	int getSize() ;
 	/**
 	 * @brief 构造函数，初始化作业集合容量
 	 * @param capacity 作业集合的容量
@@ -212,6 +213,25 @@ public:
 	 * @return void
 	 */
 	void writeVector(const std::vector<homework> &targetVector);
+	/**
+	 * @brief 根据作业ID删除作业信息
+	 * @param HW_id 作业ID
+	 * @return 如果成功删除返回true，否则返回false
+	 */
+	bool deleteHomeworkFromVectorByHWID(std::string HW_id); 
+	/**
+	 * @brief 根据用户ID删除作业信息
+	 * @param Student_id 学生ID
+	 * @return 如果成功删除返回true，否则返回false
+	 */
+	bool deleteHomeworkFromVectorByStudentID(std::string Student_id);
+	/**
+	 * @brief 根据用户ID删除作业信息
+	 * @param Student_id 学生ID
+	 * @param Course_id 课程ID
+	 * @return 如果成功删除返回true，否则返回false
+	 */
+	bool deleteHomeworkFromVectorByStudentIDandCourseID(std::string Student_id, std::string Course_id);
 	/**
 	 * @brief Displays the homework vector.
 	 *
@@ -306,6 +326,23 @@ public:
 	 */
 	bool isHomeworkIDexists(std::string homework_id);
 
+	/**
+	 * @brief Checks if a given student ID exists in the database.
+	 *
+	 * @param student_id The ID of the student.
+	 * @return bool Returns true if the student ID exists, false otherwise.
+	 */
+	bool isStudentIDexists(std::string student_id);
+
+	/**
+	 * @brief Checks if a given student ID and a given course ID exists in the database.
+	 *
+	 * @param student_id The ID of the student.
+	 * @param course_id The course ID
+	 * @return bool Returns true if the student ID exists, false otherwise.
+	 */
+	bool isStudnetandCourseIDexists(std::string student_id, std::string course_id);
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FILE SEARCH~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// 
 	/**
@@ -329,6 +366,8 @@ private:
 	std::vector<Request> requestVector; // 请求向量
 
 public:
+	int getCapacity() ;
+	int getSize() ;
 	std::vector<Request>infoVector;
 	// 利用hw初始化info
 	Request initInfo(Request origin);//teacher_id course_id hw_id
@@ -402,7 +441,6 @@ public:
 	 * @return void
 	 */
 	void appendDatabase(std::vector<Request> request_vector, std::string destinationPath, std::string databaseName);
-
 	/**
 	 * @brief 使用其他vector对已存在的内容进行更新
 	 *
@@ -410,6 +448,26 @@ public:
 	 * @return void
 	 */
 	void writeVector(const std::vector<Request> &targetVector);
+	/**
+	 * @brief 根据要求ID删除作业要求信息
+	 * @param Request_ID 要求ID
+	 * @return 如果成功删除返回true，否则返回false
+	 */
+	bool deleteRequestFromVectorByReqID(std::string Request_ID); 
+	/**
+	 * @brief 根据老师ID删除作业要求信息
+	 * @param teacher_id 老师ID
+	 * @return 如果成功删除返回true，否则返回false
+	 */
+	bool deleteRequestFromVectorByTeacherID(std::string teacher_id);
+
+	/**
+	 * @brief 根据老师ID&课程ID删除作业要求信息
+	 * @param teacher_id 老师ID	
+	 * @param course_id 课程ID
+	 * @return 如果成功删除返回true，否则返回false
+	 */
+	bool deleteRequestFromVectorByTeacherIDandCourseID(std::string teacher_id, std::string course_id);
 	/**
 	 * @brief 显示请求向量。
 	 *
@@ -463,7 +521,30 @@ public:
 	 */
 	int searchRequestIndeByRequestID(std::string request_id);
 
+	/**
+	 * @brief Checks if a given request ID exists in the database.
+	 *
+	 * @param request_id The ID of the request.
+	 * @return bool Returns true if the request ID exists, false otherwise.
+	 */
+	bool isRequestIDexists(std::string request_id);
 
+	/**
+	 * @brief Checks if a given teacher ID exists in the database.
+	 *
+	 * @param teacher_id The teacher ID of the request.
+	 * @return bool Returns true if the teacher ID exists, false otherwise.
+	 */
+	bool isTeacherIDexists(std::string teacher_id);
+
+	/**
+	 * @brief Checks if a given teacher ID and a given course ID exists in the database.
+	 *
+	 * @param teacher_id The ID of the teacher.
+	 * @param course_id The course ID of the request.
+	 * @return bool Returns true if the request ID exists, false otherwise.
+	 */
+	bool isTeacherandCourseIDexists(std::string teacher_id, std::string course_id);
 
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FILE SEARCH~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// 

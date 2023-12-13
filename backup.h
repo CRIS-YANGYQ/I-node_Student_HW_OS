@@ -27,6 +27,7 @@ private:
 public:
     backupCopy();
     ~backupCopy();
+    std::map<__time, std::string>getBackupPathMap();
     bool loadBackupCopyFromFile(const std::string folderPath, const std::string filename);
     bool saveBackupCopyToFile(const std::string folderPath, const std::string filename);
     bool createBackupCopy(__time backupTime);

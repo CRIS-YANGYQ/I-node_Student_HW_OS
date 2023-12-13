@@ -1440,6 +1440,283 @@ passing_massage markHomeworkInFileWithServer(std::string teacher_id, std::vector
 	// return teacher_course_homework_table; 
 }
 
+
+/**
+ * @brief 从文件系统和作业表中删除具有指定用户 ID 的学生
+ * @param user_id 要删除的学生的用户 ID
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteStudentInfileWithServer(std::string user_id, fileSystem& myFS){
+	passing_massage massage;
+	homeworkSet homework_table(MAX_HOMEWORK_NUMBER);
+	homework_table.readDatabase(databaseFolder, homeworkSetPath);
+	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+	userTable user_table(MAX_USER_NUMBER);
+	user_table.readDatabase(databaseFolder, userTablePath);
+	// path
+	std::string path = "/user/" + user_id;
+
+	// 尝试删除
+	bool vectorOperation = true;
+	bool temp1, temp2, temp3;
+	if(!homework_table.isStudentIDexists(user_id)){
+		temp1 = true;
+	}
+	else{
+		temp1 = homework_table.deleteHomeworkFromVectorByStudentID(user_id);
+	}
+	if(!selection_table.isUserIDexists(user_id)){
+		temp2 = true;
+	}
+	else{
+		temp2 = selection_table.deleteSelectionFromVector(user_id);
+	}
+	if(!user_table.isUserIDexists(user_id)){
+        temp3 = true;
+    }
+	else{
+		temp3 = user_table.deleteUserFromVector(user_id);
+	}
+	// 检查删除
+	vectorOperation = vectorOperation && temp1 && temp2 && temp3;
+	// vectorOperation = vectorOperation && homework_table.deleteHomeworkFromVectorByStudentID(user_id);
+	// vectorOperation = vectorOperation && selection_table.deleteSelectionFromVector(user_id);
+	// vectorOperation = vectorOperation && user_table.deleteUserFromVector(user_id);
+	if(vectorOperation && myFS.deleteDirectory(path.c_str(),"admin")){
+		massage.err_code = SUCCESS;
+		homework_table.updateDatabase(databaseFolder, homeworkSetPath);
+		selection_table.updateDatabase(databaseFolder, selectionTablePath);
+		user_table.updateDatabase(databaseFolder, userTablePath);
+		std::cout<<"Success delete!"<<std::endl;
+	}
+	else{
+		std::cerr << "path: " << path << std::endl;
+		massage.err_code =  ERROR_CODE_FAIL_DELETE_USER;
+		std::cerr<<"Error deleting"<<std::endl;
+		std::cerr<<"homework_table: "<<temp1<<std::endl;
+		std::cerr<<"selection_table: "<<temp2<<std::endl;
+		std::cerr<<"user_table: "<<temp3<<std::endl;
+		std::cerr<<"delete dir: "<<myFS.deleteDirectory(path.c_str(),"admin");
+    }
+
+	
+
+	return massage;
+}
+/**
+ * @brief 从文件系统和请求表中删除具有指定用户 ID 的教师
+ * @param user_id 要删除的教师的用户 ID
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteTeacherInfileWithServer(std::string user_id, fileSystem& myFS){
+	passing_massage massage;
+	requestSet request_table(MAX_REQUEST_NUMBER);
+	request_table.readDatabase(databaseFolder, requestTablePath);
+	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+	userTable user_table(MAX_USER_NUMBER);
+	user_table.readDatabase(databaseFolder, userTablePath);
+	std::string path = "/user/" + user_id;
+	bool vectorOperation = true;
+	// 尝试删除
+	bool temp1, temp2, temp3;
+	if(!request_table.isTeacherIDexists(user_id)){
+		temp1 = true;
+		std::cout << "1" << std::endl;
+	}
+	else{
+		temp1 = request_table.deleteRequestFromVectorByTeacherID(user_id);
+		std::cout << "2" << std::endl;
+	}
+	if(!selection_table.isUserIDexists(user_id)){
+		temp2 = true;
+		std::cout << "3" << std::endl;
+	}
+	else{
+		temp2 = selection_table.deleteSelectionFromVector(user_id);
+		std::cout << "4" << std::endl;
+	}
+	if(!user_table.isUserIDexists(user_id)){
+        temp3 = true;
+		std::cout << "5" << std::endl;
+    }
+	else{
+		temp3 = user_table.deleteUserFromVector(user_id);
+		std::cout << "6" << std::endl;
+	}
+	// 检查删除
+	vectorOperation = vectorOperation && temp1 && temp2 && temp3;
+	// vectorOperation = vectorOperation && request_table.deleteRequestFromVectorByReqID(user_id);
+	// vectorOperation = vectorOperation && selection_table.deleteSelectionFromVector(user_id);
+	// vectorOperation = vectorOperation && user_table.deleteUserFromVector(user_id);
+	if( vectorOperation && myFS.deleteDirectory(path.c_str(),"admin")){
+		massage.err_code = SUCCESS;
+		request_table.updateDatabase(databaseFolder, requestTablePath);
+		selection_table.updateDatabase(databaseFolder, selectionTablePath);
+		user_table.updateDatabase(databaseFolder, userTablePath);
+		std::cout<<"Success delete!"<<std::endl;
+	}
+	else{
+		std::cerr << "path: " << path << std::endl;
+		massage.err_code =  ERROR_CODE_FAIL_DELETE_USER;
+		std::cerr<<"Error deleting"<<std::endl;
+		std::cerr<<"request_table: "<<temp1<<std::endl;
+		std::cerr<<"selection_table: "<<temp2<<std::endl;
+		std::cerr<<"user_table: "<<temp3<<std::endl;
+		std::cerr<<"delete dir: "<<myFS.deleteDirectory(path.c_str(),"admin");
+    }
+
+	return massage;
+}
+/**
+ * @brief 从文件系统和作业表中删除具有指定用户 ID 和课程 ID 的学生的课程
+ * @param user_id 要删除课程的学生的用户 ID
+ * @param course_id 要删除的课程的课程 ID
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteStudentCourseInfileWithServer(std::string user_id, std::string course_id, fileSystem& myFS){
+	passing_massage massage;
+	homeworkSet homework_table(MAX_HOMEWORK_NUMBER);
+	homework_table.readDatabase(databaseFolder, homeworkSetPath);
+	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+
+	bool vectorOperation = true;
+	std::string path = "/user/"+ user_id + "/" + course_id;
+	bool temp1, temp2;
+	if(!homework_table.isStudnetandCourseIDexists(user_id, course_id)){
+		temp1 = true;
+	}
+	else{
+		temp1 = homework_table.deleteHomeworkFromVectorByStudentIDandCourseID(user_id, course_id);
+	}
+	if(!selection_table.isSelectionIDexists(user_id, course_id)){
+		temp2 = true;
+	}
+	else{
+		temp2 = selection_table.deleteSelectionFromVector(user_id, course_id);
+	}
+
+
+	// vectorOperation = vectorOperation && homework_table.deleteHomeworkFromVectorByStudentIDandCourseID(user_id, course_id);
+	// vectorOperation = vectorOperation && selection_table.deleteSelectionFromVector(user_id, course_id);
+
+	// 检查删除
+	vectorOperation = vectorOperation && temp1 && temp2;
+	if(vectorOperation && myFS.deleteDirectory(path.c_str(),"admin")){
+		massage.err_code = SUCCESS;
+		homework_table.updateDatabase(databaseFolder, homeworkSetPath);
+		selection_table.updateDatabase(databaseFolder, selectionTablePath);
+		std::cout<<"Success delete!"<<std::endl;
+	}
+	else{
+		std::cerr << "path: " << path << std::endl;
+		massage.err_code =  ERROR_CODE_FAIL_DELETE_USER;
+		std::cerr<<"Error deleting"<<std::endl;
+		std::cerr<<"homework_table: "<<temp1<<std::endl;
+		std::cerr<<"selection_table: "<<temp2<<std::endl;
+		std::cerr<<"delete dir: "<<myFS.deleteDirectory(path.c_str(),"admin");
+    }
+	return massage;
+}
+/**
+ * @brief 从文件系统和请求表中删除具有指定用户 ID 和课程 ID 的教师的课程
+ * @param user_id 要删除课程的教师的用户 ID
+ * @param course_id 要删除的课程的课程 ID
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteTeacherCourseInfileWithServer(std::string user_id, std::string course_id, fileSystem& myFS){
+	passing_massage massage;
+	requestSet request_table(MAX_REQUEST_NUMBER);
+	request_table.readDatabase(databaseFolder, requestTablePath);
+	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+
+	std::string path = "/user/"+ user_id + "/" + course_id;
+
+	bool vectorOperation = true;
+	bool temp1, temp2;
+	if(!request_table.isTeacherandCourseIDexists(user_id, course_id)){
+		temp1 = true;
+	}
+	else{
+		temp1 = request_table.deleteRequestFromVectorByTeacherIDandCourseID(user_id, course_id);
+	}
+	if(!selection_table.isSelectionIDexists(user_id, course_id)){
+		temp2 = true;
+	}
+	else{
+		temp2 = selection_table.deleteSelectionFromVector(user_id, course_id);
+	}
+
+	// 检查删除
+	vectorOperation = vectorOperation && temp1 && temp2;
+	// vectorOperation = vectorOperation && request_table.deleteRequestFromVectorByTeacherIDandCourseID(user_id, course_id);
+	// vectorOperation = vectorOperation && selection_table.deleteSelectionFromVector(user_id, course_id);
+	if(vectorOperation && myFS.deleteDirectory(path.c_str(),"admin")){
+		massage.err_code = SUCCESS;
+		request_table.updateDatabase(databaseFolder, requestTablePath);
+		selection_table.updateDatabase(databaseFolder, selectionTablePath);
+		std::cout<<"Success delete!"<<std::endl;
+	}
+	else{
+		std::cerr << "path: " << path << std::endl;
+		massage.err_code =  ERROR_CODE_FAIL_DELETE_USER;
+		std::cerr<<"Error deleting"<<std::endl;
+		std::cerr<<"homework_table: "<<temp1<<std::endl;
+		std::cerr<<"selection_table: "<<temp2<<std::endl;
+		std::cerr<<"delete dir: "<<myFS.deleteDirectory(path.c_str(),"admin");
+    }
+	return massage;
+}
+/**
+ * @brief 从文件系统和作业表中删除具有指定作业信息的作业
+ * @param deleteHW 要删除的作业信息
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteHomeworkInfileWithServer(homework deleteHW, fileSystem& myFS){
+	passing_massage massage;
+	homeworkSet homework_table(MAX_HOMEWORK_NUMBER);
+	homework_table.readDatabase(databaseFolder, homeworkSetPath);
+	std::string path = "/user/"+ deleteHW.student_id + "/" + deleteHW.course_id + "/" +deleteHW.hw_id;
+	if(homework_table.deleteHomeworkFromVectorByHWID(deleteHW.hw_id) && myFS.deleteFile(path.c_str(),"admin")){
+		massage.err_code = SUCCESS;
+		homework_table.updateDatabase(databaseFolder, homeworkSetPath);
+
+	}
+	else{
+		massage.err_code =  ERROR_CODE_FAIL_DELETE_HOMEWORK;
+	}
+	return massage;
+}
+/**
+ * @brief 从文件系统和请求表中删除具有指定请求信息的请求
+ * @param deleteRequest 要删除的请求信息
+ * @param myFS 文件系统对象
+ * @return 包含操作结果的传递消息结构
+ */
+passing_massage deleteRequestInfileWithServer(Request deleteRequest, fileSystem& myFS){
+	passing_massage massage;
+	requestSet request_table(MAX_REQUEST_NUMBER);
+	request_table.readDatabase(databaseFolder, requestTablePath);
+	std::string path = "/user/"+ deleteRequest.teacher_id + "/" + deleteRequest.course_id + "/" + deleteRequest.id;
+	if(request_table.deleteRequestFromVectorByReqID(deleteRequest.id) && myFS.deleteFile(path.c_str(),"admin")){
+		massage.err_code = SUCCESS;
+		request_table.updateDatabase(databaseFolder, requestTablePath);
+	}
+	else{
+		massage.err_code =  ERROR_CODE_FAIL_DELETE_REQUEST;
+	}
+	return massage;
+}
+
+
 void adminReadHomeworkReqest() {
 	// 加载用户表
 	userTable users_table = userTable(MAX_USER_NUMBER);

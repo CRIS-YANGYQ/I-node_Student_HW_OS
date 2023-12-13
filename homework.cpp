@@ -1,59 +1,6 @@
 #include"homework.h"
 
-// /**
-//  * @brief ������������� >>�����ڴ����ж�ȡ��ҵ��Ϣ�� homework �ṹ��
-//  * @param in ������
-//  * @param hw Ҫ��ȡ����ҵ��Ϣ�ṹ��
-//  * @return ������
-//  */
-// std::istream& operator >> (std::istream& in, homework& hw) {
-// 	in >> hw.submitTime >> hw.student_name >> hw.student_id >> hw.teacher_name >> hw.teacher_id
-// 		>> hw.course_name >> hw.course_id >> hw.title >> hw.request_id >> hw.hw_id >> hw.content
-// 		>> hw.isMarked >> hw.grade;
-// 	return in;
-// }
 
-// /**
-//  * @brief ������������ <<�����ڽ� homework �ṹ�����ҵ��Ϣ�������
-//  * @param out �����
-//  * @param hw Ҫ�������ҵ��Ϣ�ṹ��
-//  * @return �����
-//  */
-// std::ostream& operator << (std::ostream& out, const homework& hw) {
-// 	out << "submit time: " << hw.submitTime
-// 		<< "student_name: " << hw.student_name << "\tstudent_id: " << hw.student_id
-// 		<< "\tteacher_name: " << hw.teacher_name << "\tteacher_id: " << hw.teacher_id
-// 		<< "\tcourse_name: " << hw.course_name << "\tcourse_id: " << hw.course_id
-// 		<< "\ttitle: " << hw.title << "\trequest_id: " << hw.request_id
-// 		<< "\thw_id" << hw.hw_id << "\tcontent: " << hw.content
-// 		<< "\tisMarked: " << hw.isMarked << "\tgrade: " << hw.grade << std::endl;
-// 	return out;
-// }
-// /**
-//  * @brief ������������� >>�����ڴ����ж�ȡ������Ϣ�� Request �ṹ��
-//  * @param in ������
-//  * @param req Ҫ��ȡ��������Ϣ�ṹ��
-//  * @return ������
-//  */
-// std::istream& operator >> (std::istream& in, Request& req) {
-// 	in >> req.submitTime >> req.teacher_name >> req.teacher_id
-// 		>> req.course_name >> req.course_id >> req.title >> req.id >> req.content;
-// 	return in;
-// }
-
-// /**
-//  * @brief ������������ <<�����ڽ� Request �ṹ���������Ϣ�������
-//  * @param out �����
-//  * @param req Ҫ�����������Ϣ�ṹ��
-//  * @return �����
-//  */
-// std::ostream& operator << (std::ostream& out, const Request& req) {
-// 	out << "submitTime: " << req.submitTime << "\nteacher_name: " << req.teacher_name
-// 		<< "\tteacher_id: " << req.teacher_id << "\tcourse_name: " << req.course_name
-// 		<< "\tcourse_id: " << req.course_id << "\ttitle: " << req.title
-// 		<< "\tid: " << req.id << "\tcontent: " << req.content;
-// 	return out;
-// }
 
 /**
 	* @brief 构造函数，初始化作业集合容量
@@ -78,7 +25,8 @@ homeworkSet::homeworkSet(int capacity, std::vector<homework> homeworkVector) {
 	* @brief 析构函数，释放资源
 	*/
 homeworkSet::~homeworkSet() {}
-
+int homeworkSet::getCapacity() { return this->capacity; }
+int homeworkSet::getSize() { return this->size; }
 std::vector<homework> homeworkSet::getHomeworkVector(){
 	std::vector<homework> return_request_vector;
 	for(int i = 0; i < this->size; ++i){
@@ -406,6 +354,72 @@ void homeworkSet::writeVector(const std::vector<homework>& targetVector) {
 	}
 }
 /**
+ * @brief 根据作业ID删除作业信息
+ * @param HW_id 作业ID
+ * @return 如果成功删除返回true，否则返回false
+ */
+bool homeworkSet::deleteHomeworkFromVectorByHWID(std::string HW_id) {
+	// 使用迭代器遍历容器
+	bool tmp = false;
+	for (auto it = this->homeworkVector.begin(); it != this->homeworkVector.end();) {
+		// 检查关系式
+		if (it->hw_id == HW_id) {
+			// 删除满足条件的元素，并更新迭代器
+			it = this->homeworkVector.erase(it);
+			this->size--;
+			tmp = true;
+		} else {
+			// 没有删除元素时，继续迭代
+			++it;
+		}
+	}
+	return tmp;
+}
+/**
+ * @brief 根据用户ID删除作业信息
+ * @param Student_id 学生ID
+ * @return 如果成功删除返回true，否则返回false
+ */
+bool homeworkSet::deleteHomeworkFromVectorByStudentID(std::string Student_id){
+	// 使用迭代器遍历容器
+	bool tmp = false;
+	for (auto it = this->homeworkVector.begin(); it != this->homeworkVector.end();) {
+		// 检查关系式
+		if (it->student_id == Student_id) {
+			// 删除满足条件的元素，并更新迭代器
+			it = this->homeworkVector.erase(it);
+			this->size--;
+			tmp = true;
+		} else {
+			// 没有删除元素时，继续迭代
+			++it;
+		}
+	}
+	return tmp;
+}
+/**
+ * @brief 根据用户ID删除作业信息
+ * @param Student_id 学生ID
+ * @return 如果成功删除返回true，否则返回false
+ */
+bool homeworkSet::deleteHomeworkFromVectorByStudentIDandCourseID(std::string Student_id, std::string Course_id){
+	// 使用迭代器遍历容器
+	bool tmp = false;
+	for (auto it = this->homeworkVector.begin(); it != this->homeworkVector.end();) {
+		// 检查关系式
+		if (it->student_id == Student_id && it->course_id == Course_id) {
+			// 删除满足条件的元素，并更新迭代器
+			it = this->homeworkVector.erase(it);
+			this->size--;
+			tmp = true;
+		} else {
+			// 没有删除元素时，继续迭代
+			++it;
+		}
+	}
+	return tmp;
+}
+/**
 	* @brief Displays the homework vector.
 	*
 	* @return void
@@ -681,6 +695,41 @@ bool homeworkSet::isHomeworkIDexists(std::string homework_id) {
 	}
 	return false;
 }
+/**
+ * @brief Checks if a given student ID exists in the database.
+ *
+ * @param student_id The ID of the student.
+ * @return bool Returns true if the student ID exists, false otherwise.
+ */
+bool homeworkSet::isStudentIDexists(std::string student_id){
+	std::vector<homework> result;
+	for (int i = 0; i < size; ++i) {
+		homework temp = homeworkVector[i];
+		if (temp.student_id == student_id) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * @brief Checks if a given student ID and a given course ID exists in the database.
+ *
+ * @param student_id The ID of the student.
+ * @param course_id The course ID
+ * @return bool Returns true if the student ID exists, false otherwise.
+ */
+bool homeworkSet::isStudnetandCourseIDexists(std::string student_id, std::string course_id){
+	std::vector<homework> result;
+	for (int i = 0; i < size; ++i) {
+		homework temp = homeworkVector[i];
+		if (temp.student_id == student_id && temp.course_id == course_id) {
+			return true;
+		}
+	}
+	return false;
+}
+
 int homeworkSet::searchRequestIndeByHomeworkID(std::string homework_id) {
 	std::vector<homework> result;
 	for (int i = 0; i < size; ++i) {
@@ -728,7 +777,8 @@ requestSet::requestSet(int capacity, std::vector<Request>requestVector) {
  * @brief requestSet�������������
  */
 requestSet::~requestSet(){};
-
+int requestSet::getCapacity() { return this->capacity; }
+int requestSet::getSize() { return this->size; }
 // 利用hw初始化info
 //teacher_id course_id req_id
 Request requestSet::initInfo(Request origin){
@@ -983,6 +1033,75 @@ void requestSet::writeVector(const std::vector<Request>& targetVector) {
 	}
 	
 }
+
+/**
+ * @brief 根据作业ID删除作业信息
+ * @param HW_id 作业ID
+ * @return 如果成功删除返回true，否则返回false
+ */
+bool requestSet::deleteRequestFromVectorByReqID(std::string request_id) {
+	// 使用迭代器遍历容器
+	bool tmp = false;
+	for (auto it = this->requestVector.begin(); it != this->requestVector.end();) {
+		// 检查关系式
+		if (it->id == request_id) {
+			// 删除满足条件的元素，并更新迭代器
+			it = this->requestVector.erase(it);
+			this->size--;
+			tmp = true;
+		} else {
+			// 没有删除元素时，继续迭代
+			++it;
+		}
+	}
+	return tmp;
+}
+/**
+ * @brief 根据用户ID删除作业信息
+ * @param Student_id 学生ID
+ * @return 如果成功删除返回true，否则返回false
+ */
+bool requestSet::deleteRequestFromVectorByTeacherID(std::string teacher_id){
+	// 使用迭代器遍历容器
+	bool tmp = false;
+	for (auto it = this->requestVector.begin(); it != this->requestVector.end();) {
+		// 检查关系式
+		if (it->teacher_id == teacher_id) {
+			// 删除满足条件的元素，并更新迭代器
+			it = this->requestVector.erase(it);
+			this->size--;
+			tmp = true;
+		} else {
+			// 没有删除元素时，继续迭代
+			++it;
+		}
+	}
+	return tmp;
+}
+/**
+ * @brief 根据老师ID&课程ID删除作业要求信息
+ * @param teacher_id 老师ID	
+ * @param course_id 课程ID
+ * @return 如果成功删除返回true，否则返回false
+ */
+bool requestSet::deleteRequestFromVectorByTeacherIDandCourseID(std::string teacher_id, std::string course_id){
+	// 使用迭代器遍历容器
+	bool tmp = false;
+	for (auto it = this->requestVector.begin(); it != this->requestVector.end();) {
+		// 检查关系式
+		if (it->teacher_id == teacher_id && it->course_id == course_id) {
+			// 删除满足条件的元素，并更新迭代器
+			it = this->requestVector.erase(it);
+			this->size--;
+			tmp = true;
+		} else {
+			// 没有删除元素时，继续迭代
+			++it;
+		}
+	}
+	return tmp;
+}
+
 /**
  * @brief 显示请求向量。
  *
@@ -1082,6 +1201,39 @@ int requestSet::searchRequestIndeByRequestID(std::string request_id) {
 }
 
 
+/**
+ * @brief Checks if a given request ID exists in the database.
+ *
+ * @param request_id The ID of the request.
+ * @return bool Returns true if the request ID exists, false otherwise.
+ */
+bool requestSet::isRequestIDexists(std::string request_id) {
+	for (int i = 0; i < size; ++i) {
+		Request temp = this->requestVector[i];
+		if (temp.id == request_id) {
+			return true;
+		}
+	}
+	return false;
+}
+bool requestSet::isTeacherIDexists(std::string teacher_id){
+	for (int i = 0; i < size; ++i) {
+		Request temp = this->requestVector[i];
+		if (temp.teacher_id == teacher_id) {
+			return true;
+		}
+	}
+	return false;
+}
+bool requestSet::isTeacherandCourseIDexists(std::string teacher_id, std::string course_id){
+	for (int i = 0; i < size; ++i) {
+		Request temp = this->requestVector[i];
+		if (temp.teacher_id == teacher_id && temp.course_id == course_id) {
+			return true;
+		}
+	}
+	return false;
+}
 Request requestSet::queryRequestInFile(Request queryRequest, fileSystem &fs) {
 	Request result_hw = get_request(queryRequest, fs);
 	return result_hw;

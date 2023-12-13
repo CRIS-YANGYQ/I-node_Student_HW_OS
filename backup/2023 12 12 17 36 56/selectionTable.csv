@@ -2,6 +2,7 @@ kind,course_name,course_id,user_name,user_id
 1,OS,CS0710,Doc Lee,20010060
 0,OS,CS0710,zhangsan,20210700
 0,OS,CS0710,lisi,20210800
+0,OS,CS0710,haha,s123456
 1,Database,DB0711,Ms. Smith,20010061
 0,Database,DB0711,zhangsan,20210700
 0,Database,DB0711,lisi,20210800
@@ -85,3 +86,11 @@ kind,course_name,course_id,user_name,user_id
 0,Software Engineering,SE0718,wangwu,20210900
 0,Software Engineering,SE0718,liuliu,20211000
 0,Software Engineering,SE0718,zhaoliu,20211100
+1,DeepLearning,DL0719,chenjiu,20211400
+0,Computer Graphics,CG0717,haha,s123456
+1,Compilation Principal,CP0720,chenjiu,20211400
+0,Compilation Principal,CP0720,haha,s123456
+0,Software Engineering,SE0718,haha,s123456
+1,Design Innovation,DI0721,hahaha,t789012
+1,Project Introduntion,PI0722,hahaha,t789012
+1,Data Mining,DM0723,hahaha,t789012

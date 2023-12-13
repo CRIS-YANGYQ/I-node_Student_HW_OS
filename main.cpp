@@ -40,14 +40,13 @@
 照对系统进行恢复操作。
 */
 
-
 #include <iostream>
 #include <string>
 #include <cstdio>
 #include <ctime>
 #include <sstream>
-#include <fstream>						//文件的输出输出流操作
-#include <iomanip>						//对齐输出
+#include <fstream> //文件的输出输出流操作
+#include <iomanip> //对齐输出
 #include <vector>
 #include <chrono>
 #include <thread>
@@ -57,15 +56,17 @@
 // #include "course.h"
 // #include "homework.h"
 #include "modeApplication.h"
-const char* __admin = "admin";
+const char *__admin = "admin";
 
 using namespace std;
 fileSystem fs;
 
-void sleepMilliseconds(int milliseconds) {
+void sleepMilliseconds(int milliseconds)
+{
 	std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }
-void GodBlessUs() {
+void GodBlessUs()
+{
 	std::cout << "                    _ooOoo_" << std::endl;
 	std::cout << "                   o8888888o" << std::endl;
 	std::cout << "                   88\" . \"88" << std::endl;
@@ -89,22 +90,26 @@ void GodBlessUs() {
 	std::cout << "      佛祖保佑             永无BUG" << std::endl;
 }
 
-void studentMode() {
+void studentMode()
+{
 	// Input password
 	string enteredStudentID, enteredStudentPwd = "";
-	while (1) {
+	while (1)
+	{
 		cout << "\n\n\t\t\tEnter user ID:";
 		cin >> enteredStudentID;
 		cout << "\t\t\tEnter user password:";
 		cin >> enteredStudentPwd;
-		if (userAuthentic(enteredStudentID, enteredStudentPwd, databaseFolder, passwordsPath)) {
+		if (userAuthentic(enteredStudentID, enteredStudentPwd, databaseFolder, passwordsPath))
+		{
 			break;
 		}
 	}
-	while (1) {
+	while (1)
+	{
 		// Task selection
 		cout << "                                  Student Mode" << endl;
-		cout << "                                   			  Hi, User "<< enteredStudentID << endl;
+		cout << "                                   			  Hi, User " << enteredStudentID << endl;
 		cout << "                           ★    1. View Homework Request Content\t\t\t★" << endl;
 		cout << "                           ★    2. Submit Homework\t\t\t★" << endl;
 		cout << "                           ★    3. Get Course Grade Summary\t\t\t★" << endl;
@@ -113,8 +118,10 @@ void studentMode() {
 		cout << "                           ★    0. Return to Previous Menu\t\t\t★" << endl;
 		char studentChoice;
 		cin >> studentChoice;
-		switch (studentChoice) {
-		case '0': return;
+		switch (studentChoice)
+		{
+		case '0':
+			return;
 		case '1':
 			readHomeworkRequestInFile(enteredStudentID, fs);
 			break;
@@ -136,22 +143,26 @@ void studentMode() {
 	}
 }
 
-void teacherMode() {
+void teacherMode()
+{
 	// Input password
 	string enteredTeacherID, enteredTeacherPwd = "";
-	while (1) {
+	while (1)
+	{
 		cout << "\n\n\t\t\tEnter user ID:";
 		cin >> enteredTeacherID;
 		cout << "\t\t\tEnter user password:";
 		cin >> enteredTeacherPwd;
-		if (userAuthentic(enteredTeacherID, enteredTeacherPwd, databaseFolder, passwordsPath)) {
+		if (userAuthentic(enteredTeacherID, enteredTeacherPwd, databaseFolder, passwordsPath))
+		{
 			break;
 		}
 	}
-	while (1) {
+	while (1)
+	{
 		// Task selection
 		cout << "                                   Teacher Mode" << endl;
-		cout << "                                   			  Hi, User "<< enteredTeacherID << endl;
+		cout << "                                   			  Hi, User " << enteredTeacherID << endl;
 		cout << "                           ★    1. Publish Homework Requirements\t\t\t★" << endl;
 		cout << "                           ★    2. Receive Student Homework\t\t\t★" << endl;
 		cout << "                           ★    3. Grade Homework\t\t\t★" << endl;
@@ -160,8 +171,10 @@ void teacherMode() {
 		cout << "                           ★    0. Return to Previous Menu\t\t\t★" << endl;
 		char teacherChoice;
 		cin >> teacherChoice;
-		switch (teacherChoice) {
-		case '0': return;
+		switch (teacherChoice)
+		{
+		case '0':
+			return;
 		case '1':
 			assignHomeworkRequestInFile(enteredTeacherID, fs);
 			break;
@@ -182,15 +195,18 @@ void teacherMode() {
 		}
 	}
 }
-void administratorMode() {
+void administratorMode()
+{
 	PasswordAuthenticator authenticator;
 
 	// Input password
 	string enteredAdminPwd = "";
-	while (1) {
+	while (1)
+	{
 		cout << "\t\t\tEnter administrator password:";
 		cin >> enteredAdminPwd;
-		if (authenticator.authenticate("admin", enteredAdminPwd)) {
+		if (authenticator.authenticate("admin", enteredAdminPwd))
+		{
 			break;
 		}
 	}
@@ -198,7 +214,8 @@ void administratorMode() {
 	// Download password book
 	authenticator.loadPasswordMapFromFile(databaseFolder, passwordsPath);
 
-	while (1) {
+	while (1)
+	{
 		// Task selection
 		cout << "                                Administrator Mode" << endl;
 		cout << "                           ★  1. List Passwords\t\t\t★" << endl;
@@ -214,71 +231,84 @@ void administratorMode() {
 		char adminChoice;
 		cin >> adminChoice;
 
-	switch (adminChoice) 
+		switch (adminChoice)
 		{
-		case '0': {
+		case '0':
+		{
 			authenticator.savePasswordMapToFile(databaseFolder, passwordsPath);
 			return;
 		}
-		case '1': {
+		case '1':
+		{
 			authenticator.listEntries();
 			break;
 		}
-		case '2': {
+		case '2':
+		{
 			userTable users_table(MAX_USER_NUMBER);
 			User new_user;
-			
-			std::string addUserName, addUserId, addPassword ;
+
+			std::string addUserName, addUserId, addPassword;
 			cout << "Enter Name: ";
 			cin >> addUserName;
 			cout << "Enter ID: ";
 			std::vector<User> searched_users;
-			while(true){
+			while (true)
+			{
 				cin >> addUserId;
 				searched_users = users_table.searchUserByID(addUserId);
-				if(searched_users.size() == 0){
+				if (searched_users.size() == 0)
+				{
 					break;
-                }
-				else{
-                    std::cout << "ID already exists. Try another one.\nEnter ID: " << std::endl;
-                }
-        
+				}
+				else
+				{
+					std::cout << "ID already exists. Try another one.\nEnter ID: " << std::endl;
+				}
 			}
 
 			cout << "Enter Kind(0 for student and 1 for teacher): ";
 			char kind_choice;
-			cin>>kind_choice;
-			while(true) {
-				if(kind_choice == '0'){
+			cin >> kind_choice;
+			while (true)
+			{
+				if (kind_choice == '0')
+				{
 					new_user.kind = "student";
 					new_user.priority = 1;
 					break;
 				}
-				else if(kind_choice == '1'){
+				else if (kind_choice == '1')
+				{
 					new_user.kind = "teacher";
 					new_user.priority = 2;
 					break;
 				}
-				else{
+				else
+				{
 					cout << "Your answer is illegal.\nPlease enter 0 for student and 1 for teacher: ";
-                    cin>>kind_choice;
+					cin >> kind_choice;
 				}
 			}
 			cout << "Enter Gender(0 for male and 1 for female): ";
 			char gender_choice;
-			cin>>gender_choice;
-			while(true) {
-				if(gender_choice == '0'){
+			cin >> gender_choice;
+			while (true)
+			{
+				if (gender_choice == '0')
+				{
 					new_user.gender = "Male";
 					break;
 				}
-				else if(gender_choice == '1'){
+				else if (gender_choice == '1')
+				{
 					new_user.gender = "Female";
 					break;
 				}
-				else{
+				else
+				{
 					cout << "Your answer is illegal.\nPlease enter 0 for male and 1 for female: ";
-                    cin>>gender_choice;
+					cin >> gender_choice;
 				}
 			}
 			cout << "Enter Password: ";
@@ -288,57 +318,66 @@ void administratorMode() {
 			cout << "Successfull update for password: " << endl;
 			new_user.name = new_user.name;
 			new_user.id = new_user.id;
-			if(users_table.addDatabase(new_user,databaseFolder,userTablePath)){
+			if (users_table.addDatabase(new_user, databaseFolder, userTablePath))
+			{
 				cout << "Successfull update for user table: " << endl;
 			}
-			else{
+			else
+			{
 				cout << "Failed update for user table: " << endl;
 			}
-
 		}
-		case '3': {
+		case '3':
+		{
 			string verifyUserId, verifyPassword;
 			cout << "Authenticate User and his password\nEnter ID: ";
 			cin >> verifyUserId;
 			cout << "Enter Password: ";
 			cin >> verifyPassword;
-			if (authenticator.authenticate(verifyUserId, verifyPassword)) {
+			if (authenticator.authenticate(verifyUserId, verifyPassword))
+			{
 				cout << "Correct" << endl;
 			}
-			else {
+			else
+			{
 				cout << "Incorrect" << endl;
 			}
 			break;
 		}
-		case '4': {
+		case '4':
+		{
 			authenticator.savePasswordMapToFile(databaseFolder, passwordsPath);
 			cout << "Commit the changes successfully" << endl;
 			break;
 		}
-				/*			
-			void adminReadHomeworkReqest();
-			void adminGetGradeStats();
-			void adminAcceptHomework();
-			void adminMarkHomework();
-			*/
-		case '5': {
+			/*
+		void adminReadHomeworkReqest();
+		void adminGetGradeStats();
+		void adminAcceptHomework();
+		void adminMarkHomework();
+		*/
+		case '5':
+		{
 			adminReadHomeworkReqest();
 			cout << "Read Homework Reqest successfully" << endl;
 			break;
 		}
-		case '6':{
+		case '6':
+		{
 			// ��ȡ�ɼ�ͳ��
 			adminGetGradeStats();
 			cout << "Get Grade Stats successfully" << endl;
 			break;
 		}
-		case '7': {
+		case '7':
+		{
 			// ����ѧ����ҵ
 			adminAcceptHomework();
 			cout << "Accept Homework successfully" << endl;
 			break;
 		}
-		case '8': {
+		case '8':
+		{
 			// ��ҵ���
 			adminMarkHomework();
 			cout << "Mark Homework successfully" << endl;
@@ -350,21 +389,24 @@ void administratorMode() {
 		}
 	}
 }
-void Welcome() {
+void Welcome()
+{
 	system("clear");
 	cout << "                            ☆ Student Grade Management System ☆" << endl;
 	cout << "                                              @ Yang Yuqin" << endl;
 	cout << "                           ★    1. Teacher Login\t\t\t★" << endl;
 	cout << "                           ★    2. Student Login\t\t\t★" << endl;
 	cout << "                           ★    3. Administrator Mode\t\t\t★" << endl;
-    cout << "                           ★    4. Clear Screen\t\t\t★" << endl;
+	cout << "                           ★    4. Clear Screen\t\t\t★" << endl;
 	cout << "                           ★    B. Bless Us\t\t\t★" << endl;
 	cout << "                           ★    0. Exit\t\t\t★" << endl;
 
 	char globalChoice;
 	cin >> globalChoice;
-	switch (globalChoice) {
-	case '0': exit(0);
+	switch (globalChoice)
+	{
+	case '0':
+		exit(0);
 	case '1':
 		teacherMode();
 		break;
@@ -383,10 +425,6 @@ void Welcome() {
 		break;
 	}
 }
-
-
-
-
 
 // void test() {
 // 	homeworkSet set = homeworkSet(10);
@@ -428,8 +466,6 @@ void Welcome() {
 // 	__time temp = localtime2__time("2021 01 07 21 21 21");
 // 	cout << temp;
 // }
-
-
 
 // // 定义拼接Homework 查询字符串的函数
 // std::vector<std::string> concatenateStrings4Homework(const homework& hw) {
@@ -477,44 +513,52 @@ void Welcome() {
 // 	}
 // }
 
-
 // 创建目录的通用函数 Homework and Request
-template<typename T>
-void createDirByInfoVector(const std::vector<T>& infoVectorInstance, fileSystem& myFS) {
-    for (const auto& info_ele : infoVectorInstance) {
+template <typename T>
+void createDirByInfoVector(const std::vector<T> &infoVectorInstance, fileSystem &myFS)
+{
+	for (const auto &info_ele : infoVectorInstance)
+	{
 		// 获取查询字符串concatenateStrings()
-        std::vector<std::string> returned_path = concatenateStrings2Init(info_ele);
-        for (const std::string& path_ele : returned_path) {
-			std::cout << path_ele<<std::endl;
-			if(!myFS.pathIsExist(path_ele.c_str())){
-            	myFS.createDirectory(path_ele.c_str(), __admin);
+		std::vector<std::string> returned_path = concatenateStrings2Init(info_ele);
+		for (const std::string &path_ele : returned_path)
+		{
+			std::cout << path_ele << std::endl;
+			if (!myFS.pathIsExist(path_ele.c_str()))
+			{
+				myFS.createDirectory(path_ele.c_str(), __admin);
 			}
-        }
-    }
+		}
+	}
 }
 
-void createUserDirByInfoVector(const std::vector<User> user_info_vector, fileSystem& myFS){
-	for (const auto& user_info_ele : user_info_vector) {
-        std::string path = "/user/" + user_info_ele.id;
-		if (!myFS.pathIsExist(path.c_str())){
+void createUserDirByInfoVector(const std::vector<User> user_info_vector, fileSystem &myFS)
+{
+	for (const auto &user_info_ele : user_info_vector)
+	{
+		std::string path = "/user/" + user_info_ele.id;
+		if (!myFS.pathIsExist(path.c_str()))
+		{
 			myFS.createDirectory(path.c_str(), __admin);
 		}
-		
-    }
+	}
 }
 
-void createCourseDirByInfoVector(const std::vector<Course2User> selection_info_vector, fileSystem& myFS){
-	for (const auto& selection_info_ele : selection_info_vector) {
-        std::string path = "/user/" + selection_info_ele.user_id + "/"+ selection_info_ele.course_id;
-        if (!myFS.pathIsExist(path.c_str())){
-            myFS.createDirectory(path.c_str(), __admin);
-        }
-        
-    }
+void createCourseDirByInfoVector(const std::vector<Course2User> selection_info_vector, fileSystem &myFS)
+{
+	for (const auto &selection_info_ele : selection_info_vector)
+	{
+		std::string path = "/user/" + selection_info_ele.user_id + "/" + selection_info_ele.course_id;
+		if (!myFS.pathIsExist(path.c_str()))
+		{
+			myFS.createDirectory(path.c_str(), __admin);
+		}
+	}
 }
 
 // CSV到I-node
-void transferCSV2INODE(fileSystem &myFS){
+void transferCSV2INODE(fileSystem &myFS)
+{
 	userTable user_table(MAX_USER_NUMBER);
 	user_table.readDatabase(databaseFolder, userTablePath);
 	user_table.initInfoVector();
@@ -530,145 +574,147 @@ void transferCSV2INODE(fileSystem &myFS){
 	homework_table.initInfoVector();
 	createDirByInfoVector(homework_table.infoVector, myFS);
 	std::vector<homework> homework_vector_copy = homework_table.getHomeworkVector();
-	for(auto& hw_copy: homework_vector_copy){
+	for (auto &hw_copy : homework_vector_copy)
+	{
 		submit_homework(hw_copy, myFS);
 	}
-
 
 	requestSet request_table(MAX_REQUEST_NUMBER);
 	request_table.readDatabase(databaseFolder, requestTablePath);
 	request_table.initInfoVector();
 	createDirByInfoVector(request_table.infoVector, myFS);
 	std::vector<Request> request_vector_copy = request_table.getRequestVector();
-	std::cout<<"Request vector size: "<<request_vector_copy.size()<<std::endl;
+	std::cout << "Request vector size: " << request_vector_copy.size() << std::endl;
 	int index = 0;
-	for(auto& req_copy: request_vector_copy){
+	for (auto &req_copy : request_vector_copy)
+	{
 		index++;
-		std:cout<<index<<std::endl;
+	std:
+		cout << index << std::endl;
 		submit_request(req_copy, myFS);
 	}
-
 }
 
+void testWLFILE()
+{
+	// 提交获取作业内容测试
+	homework myHomework;
+	myHomework.student_name = "John Doe";
+	myHomework.student_id = "s123456";
+	myHomework.teacher_name = "Dr. Smith";
+	myHomework.teacher_id = "t789012";
+	myHomework.course_name = "Computer Science";
+	myHomework.course_id = "CS101";
+	myHomework.title = "Homework Assignment 1";
+	myHomework.request_id = "R123";
+	myHomework.hw_id = "HW001";
+	myHomework.content = "Write a program that...";
+	fs.createDirectory("/user/s123456", "admin");
+	fs.createDirectory("/user/s123456/CS101", "admin");
+	fs.createDirectory("/user/s123456/CS101/HW001", "admin");
+	fs.createDirectory("/user/s123456/CS101/HW002", "admin");
+	fs.createDirectory("/user/s123456/CS101/HW003", "admin");
+	submit_homework(myHomework, fs);
+	myHomework.hw_id = "HW002";
+	submit_homework(myHomework, fs);
+	myHomework.hw_id = "HW003";
+	submit_homework(myHomework, fs);
+	fs.displayDirectory("/");
+	homework myHk;
+	myHk.student_id = "s123456";
+	myHk.teacher_id = "t789012";
+	myHk.course_id = "CS101";
+	myHk.hw_id = "HW001";
+	myHk = get_stu_homework(myHomework, fs);
+	std::cout << myHk.content << std::endl;
+	std::vector<homework> stu_homeworks;
+	stu_homeworks = get_stu_homework_list("s123456", "CS101", fs);
+	for (int i = 0; i < stu_homeworks.size(); i++)
+	{
+		std::cout << "学生id:" << stu_homeworks[i].student_id << "作业id:" << stu_homeworks[i].hw_id << std::endl;
+	}
+	//---------------------------------------------------------------------------------------------------
+	// 提交和获取作业要求测试
+	fs.createDirectory("/user/T123", "admin");
+	fs.createDirectory("/user/T123/CS101", "admin");
+	fs.createDirectory("/user/T123/CS101/R001", "admin");
+	fs.createDirectory("/user/T123/CS101/R002", "admin");
+	fs.createDirectory("/user/T123/CS101/R003", "admin");
+	Request myRequest;
+	myRequest.teacher_name = "John Doe";
+	myRequest.teacher_id = "T123";
+	myRequest.course_name = "Computer Science";
+	myRequest.course_id = "CS101";
+	myRequest.title = "Request Title";
+	myRequest.id = "R001";
+	myRequest.content = "This is the content of the request.";
+	submit_request(myRequest, fs);
+	myRequest.id = "R002";
+	submit_request(myRequest, fs);
+	myRequest.id = "R003";
+	submit_request(myRequest, fs);
+	fs.displayDirectory("/");
+	Request hwRequest;
+	hwRequest.teacher_id = "T123";
+	hwRequest.course_id = "CS101";
+	hwRequest.id = "R001";
+	hwRequest = get_request(hwRequest, fs);
+	std::vector<Request> request_list;
+	request_list = get_stu_request_list("T123", "CS101", fs);
+	for (int i = 0; i < request_list.size(); i++)
+	{
+		std::cout << "教师id:" << request_list[i].teacher_id << "需求id:" << request_list[i].id << std::endl;
+	}
 
-void testWLFILE(){
-    //提交获取作业内容测试
-    homework myHomework;
-    myHomework.student_name = "John Doe";
-    myHomework.student_id = "s123456";
-    myHomework.teacher_name = "Dr. Smith";
-    myHomework.teacher_id = "t789012";
-    myHomework.course_name = "Computer Science";
-    myHomework.course_id = "CS101";
-    myHomework.title = "Homework Assignment 1";
-    myHomework.request_id = "R123";
-    myHomework.hw_id = "HW001";
-    myHomework.content = "Write a program that...";
-    fs.createDirectory("/user/s123456","admin");
-    fs.createDirectory("/user/s123456/CS101","admin");
-    fs.createDirectory("/user/s123456/CS101/HW001","admin");
-    fs.createDirectory("/user/s123456/CS101/HW002","admin");
-    fs.createDirectory("/user/s123456/CS101/HW003","admin");
-    submit_homework(myHomework, fs);
-    myHomework.hw_id = "HW002";
-    submit_homework(myHomework, fs);
-    myHomework.hw_id = "HW003";
-    submit_homework(myHomework, fs);
-    fs.displayDirectory("/");
-    homework myHk;
-    myHk.student_id = "s123456";
-    myHk.teacher_id = "t789012";
-    myHk.course_id = "CS101";
-    myHk.hw_id = "HW001";
-    myHk = get_stu_homework(myHomework, fs);
-    std::cout << myHk.content<<std::endl;
-    std::vector<homework> stu_homeworks;
-    stu_homeworks = get_stu_homework_list("s123456","CS101", fs);
-    for (int i =0;i<stu_homeworks.size();i++)
-    {
-        std::cout<<"学生id:"<<stu_homeworks[i].student_id<<"作业id:"<<stu_homeworks[i].hw_id<<std::endl;
-    }
-    //---------------------------------------------------------------------------------------------------
-    //提交和获取作业要求测试
-    fs.createDirectory("/user/T123","admin");
-    fs.createDirectory("/user/T123/CS101","admin");
-    fs.createDirectory("/user/T123/CS101/R001","admin");
-    fs.createDirectory("/user/T123/CS101/R002","admin");
-    fs.createDirectory("/user/T123/CS101/R003","admin");
-    Request myRequest;
-    myRequest.teacher_name = "John Doe";
-    myRequest.teacher_id = "T123";
-    myRequest.course_name = "Computer Science";
-    myRequest.course_id = "CS101";
-    myRequest.title = "Request Title";
-    myRequest.id = "R001";
-    myRequest.content = "This is the content of the request.";
-    submit_request(myRequest, fs);
-    myRequest.id = "R002";
-    submit_request(myRequest, fs);
-    myRequest.id = "R003";
-    submit_request(myRequest, fs);
-    fs.displayDirectory("/");
-    Request hwRequest;
-    hwRequest.teacher_id = "T123";
-    hwRequest.course_id = "CS101";
-    hwRequest.id = "R001";
-    hwRequest = get_request(hwRequest, fs);
-    std::vector<Request> request_list;
-    request_list = get_stu_request_list("T123","CS101", fs);
-    for (int i =0;i<request_list.size();i++)
-    {
-        std::cout<<"教师id:"<<request_list[i].teacher_id<<"需求id:"<<request_list[i].id<<std::endl;
-    }
-
-
-// -------------------------------YYQ TEST-----------------------------------
+	// -------------------------------YYQ TEST-----------------------------------
 	transferCSV2INODE(fs);
 
-	std::cout<<"\n-----test req-----"<<std::endl;
-	std::cout<<std::endl<<"20010060 CS0710"<<std::endl;
-    request_list = get_stu_request_list("20010060","CS0710", fs);
-    for (int i =0;i<request_list.size();i++)
-    {
-        std::cout<<"教师id:"<<request_list[i].teacher_id<<" 需求id:"<<request_list[i].id<<std::endl;
-    }
+	std::cout << "\n-----test req-----" << std::endl;
+	std::cout << std::endl
+			  << "20010060 CS0710" << std::endl;
+	request_list = get_stu_request_list("20010060", "CS0710", fs);
+	for (int i = 0; i < request_list.size(); i++)
+	{
+		std::cout << "教师id:" << request_list[i].teacher_id << " 需求id:" << request_list[i].id << std::endl;
+	}
 
+	std::cout << "\n-----test hw------" << std::endl;
 
-	std::cout<<"\n-----test hw------"<<std::endl;
+	std::cout << std::endl
+			  << "20210700 CS0710" << std::endl;
+	std::cout << "duplicate" << std::endl;
+	stu_homeworks = get_stu_homework_list("20210700", "CS0710", fs);
+	for (int i = 0; i < stu_homeworks.size(); i++)
+	{
+		std::cout << "学生id:" << stu_homeworks[i].student_id << " 作业id:" << stu_homeworks[i].hw_id << std::endl;
+	}
 
+	std::cout << std::endl
+			  << "20210800 WEB0715" << std::endl;
+	stu_homeworks = get_stu_homework_list("20210800", "WEB0715", fs);
+	for (int i = 0; i < stu_homeworks.size(); i++)
+	{
+		std::cout << "学生id:" << stu_homeworks[i].student_id << " 作业id:" << stu_homeworks[i].hw_id << std::endl;
+	}
 
-	std::cout<<std::endl<<"20210700 CS0710"<<std::endl;
-	std::cout<<"duplicate"<<std::endl;
-	stu_homeworks = get_stu_homework_list("20210700","CS0710", fs);
-    for (int i =0;i<stu_homeworks.size();i++)
-    {
-        std::cout<<"学生id:"<<stu_homeworks[i].student_id<<" 作业id:"<<stu_homeworks[i].hw_id<<std::endl;
-    }
-
-
-	std::cout<<std::endl<<"20210800 WEB0715"<<std::endl;
-	stu_homeworks = get_stu_homework_list("20210800","WEB0715", fs);
-    for (int i =0;i<stu_homeworks.size();i++)
-    {
-        std::cout<<"学生id:"<<stu_homeworks[i].student_id<<" 作业id:"<<stu_homeworks[i].hw_id<<std::endl;
-    }
-
-
-	std::cout<<std::endl<<"20212000 SE0718"<<std::endl;
-	stu_homeworks = get_stu_homework_list("20212000","SE0718", fs);
-    for (int i =0;i<stu_homeworks.size();i++)
-    {
-        std::cout<<"学生id:"<<stu_homeworks[i].student_id<<" 作业id:"<<stu_homeworks[i].hw_id<<std::endl;
-    }
+	std::cout << std::endl
+			  << "20212000 SE0718" << std::endl;
+	stu_homeworks = get_stu_homework_list("20212000", "SE0718", fs);
+	for (int i = 0; i < stu_homeworks.size(); i++)
+	{
+		std::cout << "学生id:" << stu_homeworks[i].student_id << " 作业id:" << stu_homeworks[i].hw_id << std::endl;
+	}
 }
 
-void testYYQFILE(){
+void testYYQFILE()
+{
 	transferCSV2INODE(fs);
 
 	while (1)
 		Welcome();
 }
-void testAppendDB(){
+void testAppendDB()
+{
 	homeworkSet homeworkTable(MAX_HOMEWORK_NUMBER);
 	homeworkTable.readDatabase(databaseFolder, homeworkSetPath);
 	homework hw;
@@ -687,28 +733,33 @@ void testAppendDB(){
 	test_append.push_back(hw);
 	homeworkTable.appendDatabase(test_append, databaseFolder, homeworkSetPath);
 }
-void testFileInit(){
-	cout<<"1"<<endl;
+void testFileInit()
+{
+	cout << "1" << endl;
 	userTable user_table(MAX_USER_NUMBER);
 	user_table.readDatabase(databaseFolder, userTablePath);
 	user_table.initInfoVector();
 	createUserDirByInfoVector(user_table.infoVector, fs);
-	cout<<"2"<<endl;
+	cout << "2" << endl;
 
 	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
 	selection_table.readDatabase(databaseFolder, selectionTablePath);
 	selection_table.initInfoVector();
 	createCourseDirByInfoVector(selection_table.infoVector, fs);
 
-	std::cout<<fs.pathIsExist("/user/20010064")<<std::endl;;
-	string searchPath ;
-	while(1){
-		cout<<"input your search path"<<std::endl;
-		cin>>searchPath;
-		std::cout<<"Exist: "<<fs.pathIsExist(searchPath.c_str())<<std::endl;;
+	std::cout << fs.pathIsExist("/user/20010064") << std::endl;
+	;
+	string searchPath;
+	while (1)
+	{
+		cout << "input your search path" << std::endl;
+		cin >> searchPath;
+		std::cout << "Exist: " << fs.pathIsExist(searchPath.c_str()) << std::endl;
+		;
 	}
 }
-void testBackup(){
+void testBackup()
+{
 	// backupCopy* backup_copys = new backupCopy();
 	// backup_copys->createBackupCopy(localtime2__time(getLocaltime()));
 	// backup_copys->listEntries();
@@ -730,7 +781,7 @@ void testBackup(){
 	// std::cout<<"load\n";
 	// backup_copys.loadBackupCopyFromFile(databaseFolder, backupFilePath);
 	// std::cout<<"list\n";
-    // backup_copys.listEntries();
+	// backup_copys.listEntries();
 	// std::cout<<"trace\n";
 	// __time trace_time; //2023 12 12 16 1 42
 	// trace_time.year = 2023;
@@ -742,41 +793,44 @@ void testBackup(){
 	// backup_copys.tracebackDatabse(trace_time, databaseFolder, backupFilePath);
 
 	backupCopy backup_copys;
-	std::cout<<"load\n";
+	std::cout << "load\n";
 	backup_copys.loadBackupCopyFromFile(databaseFolder, backupFilePath);
-	std::cout<<"list\n";
-    backup_copys.listEntries();
-	std::cout<<"showEntries\n";
+	std::cout << "list\n";
+	backup_copys.listEntries();
+	std::cout << "showEntries\n";
 	__time target_time = backup_copys.showEntriesAndWait();
-	if(isNullTime(target_time)){
-		std::cout<<"null time"<<std::endl;
+	if (isNullTime(target_time))
+	{
+		std::cout << "null time" << std::endl;
 	}
-	else{
-		std::cout<<"traceback\n";
-		std::cout<<"trace back to time: "<<target_time<<std::endl;		
+	else
+	{
+		std::cout << "traceback\n";
+		std::cout << "trace back to time: " << target_time << std::endl;
 		backup_copys.tracebackDatabse(target_time, databaseFolder, backupFilePath);
 	}
 }
-void testDelete_AddSelection(){
+void testDelete_AddSelection()
+{
 	// 用户删除
-	cout<<"1"<<endl;
+	cout << "1" << endl;
 	userTable user_table(MAX_USER_NUMBER);
 	user_table.readDatabase(databaseFolder, userTablePath);
-	std::cout<<"Before "<<(user_table.searchUserByID("20212600").size())<<std::endl;
+	std::cout << "Before " << (user_table.searchUserByID("20212600").size()) << std::endl;
 	user_table.deleteUserFromVector("20212600");
-	std::cout<<"After "<<(user_table.searchUserByID("20212600").size())<<std::endl;
+	std::cout << "After " << (user_table.searchUserByID("20212600").size()) << std::endl;
 
 	// 选课删除
-	cout<<"2"<<endl;
+	cout << "2" << endl;
 	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
 	selection_table.readDatabase(databaseFolder, selectionTablePath);
-	std::cout<<"Before "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "DL0719").size())<<std::endl;
+	std::cout << "Before " << (selection_table.searchSelectionByUserIDandCourseID("20211400", "DL0719").size()) << std::endl;
 	selection_table.deleteSelectionFromVector("20211400", "DL0719");
-	std::cout<<"After "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "DL0719").size())<<std::endl;
+	std::cout << "After " << (selection_table.searchSelectionByUserIDandCourseID("20211400", "DL0719").size()) << std::endl;
 
 	// 插入选课
-	cout<<"3"<<endl;
-	std::cout<<"Insert Before "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size())<<std::endl;
+	cout << "3" << endl;
+	std::cout << "Insert Before " << (selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size()) << std::endl;
 	// 初始化选课元素
 	Course2User sel_ele;
 	sel_ele.kind = 1;
@@ -788,27 +842,270 @@ void testDelete_AddSelection(){
 	selection_table.addDatabase(sel_ele, databaseFolder, selectionTablePath);
 	// 重新读取csv
 	selection_table.readDatabase(databaseFolder, selectionTablePath);
-	std::cout<<"Insert After "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size())<<std::endl;
+	std::cout << "Insert After " << (selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size()) << std::endl;
 
 	// 尝试删除
 	selection_table.deleteSelectionFromVector("20211400", "CP0720");
-	std::cout<<"Delete After "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size())<<std::endl;
+	std::cout << "Delete After " << (selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size()) << std::endl;
 	selection_table.readDatabase(databaseFolder, selectionTablePath);
-	std::cout<<"Read After "<<(selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size())<<std::endl;
+	std::cout << "Read After " << (selection_table.searchSelectionByUserIDandCourseID("20211400", "CP0720").size()) << std::endl;
+}
+// 2023/12/13 12:13
+void testDeleteForSelctionAndHW()
+{
 
+	// 0,Compilation Principal,CP0720,haha,s123456
+	// 0,oftware Engineering,SE0718,haha,s123456
+
+	// 删除单一课程
+
+	cout << "删除单一课程" << endl;
+	Course2UserTable selection_table(MAX_SELECTION_NUMBER);
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+	cout << "Before" << endl;
+	std::cout << selection_table.searchSelectionByUserId("s123456").size() << endl;
+	;
+	for (auto &selection : selection_table.searchSelectionByUserId("s123456"))
+	{
+		std::cout << selection << endl;
+	}
+	selection_table.deleteSelectionFromVector("s123456", "CP0720");
+	cout << "After" << endl;
+	std::cout << selection_table.searchSelectionByUserId("s123456").size() << endl;
+	;
+	for (auto &selection : selection_table.searchSelectionByUserId("s123456"))
+	{
+		std::cout << selection << endl;
+	}
+	// 删除个人的全部课程
+	cout << "删除个人的全部课程" << endl;
+	// Course2UserTable selection_table(MAX_SELECTION_NUMBER);
+	selection_table.readDatabase(databaseFolder, selectionTablePath);
+	cout << "Before" << endl;
+	std::cout << selection_table.searchSelectionByUserId("s123456").size() << endl;
+	;
+	for (auto &selection : selection_table.searchSelectionByUserId("s123456"))
+	{
+		std::cout << selection << endl;
+	}
+	selection_table.deleteSelectionFromVector("s123456");
+	cout << "After" << endl;
+	std::cout << selection_table.searchSelectionByUserId("s123456").size() << endl;
+	;
+	for (auto &selection : selection_table.searchSelectionByUserId("s123456"))
+	{
+		std::cout << selection << endl;
+	}
+
+	// 删除单一作业
+	cout << "删除单一作业" << endl;
+	homeworkSet homework_table(MAX_HOMEWORK_NUMBER);
+	homework_table.readDatabase(databaseFolder, homeworkSetPath);
+	cout << "Before" << endl;
+	std::cout << homework_table.searchHomeworkByStudentID("s123456").size() << endl;
+	;
+	for (auto &hw_element : homework_table.searchHomeworkByStudentID("s123456"))
+	{
+		std::cout << hw_element << endl;
+	}
+	homework_table.deleteHomeworkFromVectorByHWID("testHWID1");
+	cout << "After" << endl;
+	std::cout << homework_table.searchHomeworkByStudentID("s123456").size() << endl;
+	;
+	for (auto &hw_element : homework_table.searchHomeworkByStudentID("s123456"))
+	{
+		std::cout << hw_element << endl;
+	}
+
+	// 删除个人的所有课程作业
+	cout << "删除个人的所有课程作业" << endl;
+	homework_table.readDatabase(databaseFolder, homeworkSetPath);
+	cout << "Before" << endl;
+	std::cout << homework_table.searchHomeworkByStudentID("s123456").size() << endl;
+	;
+	for (auto &hw_element : homework_table.searchHomeworkByStudentID("s123456"))
+	{
+		std::cout << hw_element << endl;
+	}
+	homework_table.deleteHomeworkFromVectorByStudentIDandCourseID("s123456", "CS101");
+	cout << "After" << endl;
+	std::cout << homework_table.searchHomeworkByStudentID("s123456").size() << endl;
+	;
+	for (auto &hw_element : homework_table.searchHomeworkByStudentID("s123456"))
+	{
+		std::cout << hw_element << endl;
+	}
+	// 删除个人全部作业
+	cout << "删除个人全部作业" << endl;
+	// homeworkSet homework_table(MAX_HOMEWORK_NUMBER);
+	homework_table.readDatabase(databaseFolder, homeworkSetPath);
+	cout << "Before" << endl;
+	std::cout << homework_table.searchHomeworkByStudentID("s123456").size() << endl;
+	;
+	for (auto &hw_element : homework_table.searchHomeworkByStudentID("s123456"))
+	{
+		std::cout << hw_element << endl;
+	}
+	homework_table.deleteHomeworkFromVectorByStudentID("s123456");
+	cout << "After" << endl;
+	std::cout << homework_table.searchHomeworkByStudentID("s123456").size() << endl;
+	;
+	for (auto &hw_element : homework_table.searchHomeworkByStudentID("s123456"))
+	{
+		std::cout << hw_element << endl;
+	}
+
+	// requestSet request_table(MAX_REQUEST_NUMBER);
+	// request_table.readDatabase(original, requestTablePath);
+
+	// PasswordAuthenticator authenticator(databaseFolder, passwordsPath);
+	// authenticator.loadPasswordMapFromFile(databaseFolder, passwordsPath);
+	// authenticator.savePasswordMapToFile(backupFolder, passwordsPath);
+}
+// 2023/12/13 12:48
+void testDeleteForRequest()
+{
+
+	// 删除单一要求
+	cout << "删除单一要求" << endl;
+	requestSet request_table(MAX_REQUEST_NUMBER);
+	request_table.readDatabase(databaseFolder, requestTablePath);
+	cout << "Before" << endl;
+
+	std::cout << request_table.searchRequestByTeacherID("t789012").size() << endl;
+	;
+	std::cout << "Vector Size: " << request_table.getSize() << endl;
+	std::cout << "Vector Capacity: " << request_table.getCapacity() << endl;
+	for (auto &req_element : request_table.searchRequestByTeacherID("t789012"))
+	{
+		std::cout << req_element << endl;
+	}
+	// 删除操作
+	request_table.deleteRequestFromVectorByReqID("DI_hw2");
+	cout << "After" << endl;
+	std::cout << request_table.searchRequestByTeacherID("t789012").size() << endl;
+	;
+	std::cout << "Vector Size: " << request_table.getSize() << endl;
+	std::cout << "Vector Capacity: " << request_table.getCapacity() << endl;
+	for (auto &req_element : request_table.searchRequestByTeacherID("t789012"))
+	{
+		std::cout << req_element << endl;
+	}
+
+	// 删除老师某一课程发布的所有要求
+	cout << "删除老师某一课程发布的所有要求" << endl;
+	// 无需初始化request_table
+	request_table.readDatabase(databaseFolder, requestTablePath);
+	cout << "Before" << endl;
+	std::cout << request_table.searchRequestByTeacherID("t789012").size() << endl;
+	;
+	std::cout << "Vector Size: " << request_table.getSize() << endl;
+	std::cout << "Vector Capacity: " << request_table.getCapacity() << endl;
+	for (auto &req_element : request_table.searchRequestByTeacherID("t789012"))
+	{
+		std::cout << req_element << endl;
+	}
+	// 删除操作
+	request_table.deleteRequestFromVectorByTeacherIDandCourseID("t789012", "DI0721");
+	cout << "After" << endl;
+	std::cout << request_table.searchRequestByTeacherID("t789012").size() << endl;
+	;
+	std::cout << "Vector Size: " << request_table.getSize() << endl;
+	std::cout << "Vector Capacity: " << request_table.getCapacity() << endl;
+	for (auto &req_element : request_table.searchRequestByTeacherID("t789012"))
+	{
+		std::cout << req_element << endl;
+	}
+
+	// 删除老师发布的所有要求
+	cout << "删除老师发布的所有要求" << endl;
+	// 无需初始化request_table
+	request_table.readDatabase(databaseFolder, requestTablePath);
+	cout << "Before" << endl;
+	std::cout << request_table.searchRequestByTeacherID("t789012").size() << endl;
+	;
+	std::cout << "Vector Size: " << request_table.getSize() << endl;
+	std::cout << "Vector Capacity: " << request_table.getCapacity() << endl;
+	for (auto &req_element : request_table.searchRequestByTeacherID("t789012"))
+	{
+		std::cout << req_element << endl;
+	}
+	// 删除操作
+	request_table.deleteRequestFromVectorByTeacherID("t789012");
+	cout << "After" << endl;
+	std::cout << request_table.searchRequestByTeacherID("t789012").size() << endl;
+	;
+	std::cout << "Vector Size: " << request_table.getSize() << endl;
+	std::cout << "Vector Capacity: " << request_table.getCapacity() << endl;
+	for (auto &req_element : request_table.searchRequestByTeacherID("t789012"))
+	{
+		std::cout << req_element << endl;
+	}
+}
+// 2023/12/13 16:03
+void testDelete(fileSystem &myFS)
+{
+	// 删除学生/教师文件夹
+	// deleteStudentInfileWithServer("s123456", myFS);
+	// deleteTeacherInfileWithServer("t789012", myFS);
+
+	// 删除学生/教师下的课程文件夹
+	// deleteStudentCourseInfileWithServer("s123456", "CS0710", myFS);
+	// deleteTeacherCourseInfileWithServer("t789012", "DI0721", myFS);
+
+	//删除单一作业/要求
+	// homework test_hw;
+	// test_hw.student_id = "s123456";
+	// test_hw.course_id = "CS101";
+	// test_hw.hw_id = "testHWID3";
+	// deleteHomeworkInfileWithServer(test_hw, myFS);
+
+	Request test_req;
+	test_req.teacher_id = "t789012";
+	test_req.course_id = "DI0721";
+	test_req.id = "DI_hw2";
+	deleteRequestInfileWithServer(test_req, myFS);
+}
+// 2023/12/13 22:43
+void traceback2Initial(){
+	backupCopy backup_copys;
+	std::cout<<"load\n";
+	backup_copys.loadBackupCopyFromFile(databaseFolder, backupFilePath);
+	std::cout<<"list\n";
+	backup_copys.listEntries();
+	std::cout<<"trace\n";
+	__time trace_time; //2023 12 12 17 36 56
+	trace_time.year = 2023;
+	trace_time.month = 12;
+	trace_time.date = 12;
+	trace_time.hour = 17;
+	trace_time.minute = 36;
+	trace_time.second = 56;
+	backup_copys.tracebackDatabse(trace_time, databaseFolder, backupFilePath);
 }
 int main()
 {
+	//2023/12/13 22:43
+	traceback2Initial();
+	transferCSV2INODE(fs);
+	// 2023.12.13 16:46
+	testDelete(fs);
+	// 2023.12.13
+	// testDeleteForRequest();
+	// testDeleteForSelctionAndHW();
 
-	// testDelete_AddSelection();
-	// testBackup();
-	// testAppendDB();
+	// 2023.12.12
+	//  testDelete_AddSelection();
+	//  testBackup();
+
+	// 2023.12.9
+	//  testAppendDB();
+
 	// testYYQFILE();
-	while (1)
-		//testPasswordAuthenticator();
-		testYYQFILE();
-		//test();
-	//teacherMode();
-	//test();
-
+	// while (1)
+	// testPasswordAuthenticator();
+	// testYYQFILE();
+	// test();
+	// teacherMode();
+	// test();
 }

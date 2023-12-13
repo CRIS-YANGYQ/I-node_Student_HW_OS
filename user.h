@@ -126,7 +126,13 @@ public:
      * @param databaseName 数据库名称
      */
     bool addDatabase(const User& newUser, std::string destinationPath, std::string databaseName) ;
-
+	/**
+	 * @brief Checks if a given user ID exists in the database.
+	 *
+	 * @param user_id The ID of the user.
+	 * @return bool Returns true if the user ID exists, false otherwise.
+	 */
+	bool isUserIDexists(std::string user_id);
     /**
      * @brief 从用户向量中删除具有指定用户 ID 的用户
      * @param user_id 要删除的用户的 ID

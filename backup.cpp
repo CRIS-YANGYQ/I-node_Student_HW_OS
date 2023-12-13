@@ -20,6 +20,9 @@ backupCopy::backupCopy() {
 backupCopy::~backupCopy() {
     // Destructor implementation
 }
+std::map<__time, std::string> backupCopy::getBackupPathMap(){
+    return this->backupPathMap;
+}
 
 bool backupCopy::loadBackupCopyFromFile(const std::string folderPath, const std::string filename) {
 

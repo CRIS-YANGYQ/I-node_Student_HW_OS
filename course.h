@@ -147,10 +147,30 @@ public:
 	 */
 	bool addDatabase(const Course2User& new_selection, std::string destinationPath, std::string databaseName);
 	/**
+	 * @brief Checks if a given user ID exists in the database.
+	 *
+	 * @param user_id The ID of the user.
+	 * @return bool Returns true if the user ID exists, false otherwise.
+	 */
+	bool isUserIDexists(std::string user_id);
+	/**
+	 * @brief Checks if a given selection ID exists in the database.
+	 *
+	 * @param user_id The ID of the user.
+	 * @param course_id The ID of the course
+	 * @return bool Returns true if the selection ID exists, false otherwise.
+	 */
+	bool isSelectionIDexists(std::string user_id, std::string course_id);
+	/**
 	 * @brief 显示选课关系信息向量
 	 */
 	void displaySelectionVector();
-
+	/**
+	 * @brief 根据用户ID删除选课关系信息
+	 * @param userID 用户ID
+	 * @return 如果成功删除返回true，否则返回false
+	 */
+	bool deleteSelectionFromVector(std::string userID) ;
 	/**
 	 * @brief 根据用户ID和课程ID删除选课关系信息
 	 * @param userID 用户ID

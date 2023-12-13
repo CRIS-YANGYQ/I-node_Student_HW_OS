@@ -202,6 +202,21 @@ bool userTable::addDatabase(const User& newUser, std::string destinationPath, st
     return true;
 
 }
+/**
+ * @brief Checks if a given user ID exists in the database.
+ *
+ * @param user_id The ID of the user.
+ * @return bool Returns true if the user ID exists, false otherwise.
+ */
+bool userTable::isUserIDexists(std::string user_id){
+    for(int i = 0; i < this->size; ++i){
+        if(this->userVector[i].id == user_id){
+            return true;
+        }
+    }
+    return false;
+}
+
 // 根据用户ID搜索用户信息
 std::vector<User> userTable::searchUserByID(std::string id) {
     std::vector<User> result;
