@@ -2,6 +2,32 @@
 #define BASIC_H
 #include <iostream>
 #include "definedTime.h"
+/*
+* 结构体 homework 包括以下成员：
+*   - __time submitTime：作业提交时间
+*   - std::string student_name：学生姓名
+*   - std::string student_id：学生ID
+*   - std::string teacher_name：教师姓名
+*   - std::string teacher_id：教师ID
+*   - std::string course_name：课程名称
+*   - std::string course_id：课程ID
+*   - std::string title：作业标题
+*   - std::string request_id：请求ID
+*   - std::string hw_id：作业ID
+*   - std::string content：作业内容
+*   - bool isMarked：批改状态（true表示已批改，false表示未批改）
+*   - int grade：成绩
+*
+* 结构体 Request 包括以下成员：
+*   - __time submitTime：请求提交时间
+*   - std::string teacher_name：教师姓名
+*   - std::string teacher_id：教师ID
+*   - std::string course_name：课程名称
+*   - std::string course_id：课程ID
+*   - std::string title：请求标题
+*   - std::string id：请求ID
+*   - std::string content：请求内容
+*/
 struct homework {
     __time submitTime;
 	std::string student_name;
@@ -17,23 +43,23 @@ struct homework {
 	int isMarked = 0;
 	int grade = 0;
     friend std::istream& operator >> (std::istream& in, homework& hw) {
-    in >> hw.submitTime >> hw.student_name >> hw.student_id >> hw.teacher_name >> hw.teacher_id
-        >> hw.course_name >> hw.course_id >> hw.title >> hw.request_id >> hw.hw_id >> hw.content
-        >> hw.isMarked >> hw.grade;
-    return in;
-}
+        in >> hw.submitTime >> hw.student_name >> hw.student_id >> hw.teacher_name >> hw.teacher_id
+            >> hw.course_name >> hw.course_id >> hw.title >> hw.request_id >> hw.hw_id >> hw.content
+            >> hw.isMarked >> hw.grade;
+        return in;
+    }
 
 
     friend std::ostream& operator << (std::ostream& out, const homework& hw) {
-    out << "submit time: " << hw.submitTime<<std::endl
-        << "student_name: " << hw.student_name << "\tstudent_id: " << hw.student_id
-        << "\tteacher_name: " << hw.teacher_name << "\tteacher_id: " << hw.teacher_id
-        << "\tcourse_name: " << hw.course_name << "\tcourse_id: " << hw.course_id
-        << "\ttitle: " << hw.title << "\trequest_id: " << hw.request_id
-        << "\thw_id: " << hw.hw_id << "\tcontent: " << hw.content
-        << "\tisMarked: " << hw.isMarked << "\tgrade: " << hw.grade << std::endl;
-    return out;
-}
+        out << "submit time: " << hw.submitTime<<std::endl
+            << "student_name: " << hw.student_name << "\tstudent_id: " << hw.student_id
+            << "\tteacher_name: " << hw.teacher_name << "\tteacher_id: " << hw.teacher_id
+            << "\tcourse_name: " << hw.course_name << "\tcourse_id: " << hw.course_id
+            << "\ttitle: " << hw.title << "\trequest_id: " << hw.request_id
+            << "\thw_id: " << hw.hw_id << "\tcontent: " << hw.content
+            << "\tisMarked: " << hw.isMarked << "\tgrade: " << hw.grade << std::endl;
+        return out;
+    }
 
 
 };

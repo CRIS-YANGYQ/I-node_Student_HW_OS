@@ -9,30 +9,7 @@
 *   - 类 HomeworkSet，用于管理作业集合，包括作业集合的初始化、数据库读写、显示作业信息等功能
 *   - 类 RequestSet，用于管理请求集合，包括请求集合的初始化、数据库读写、显示请求信息等功能
 *
-* 结构体 homework 包括以下成员：
-*   - __time submitTime：作业提交时间
-*   - std::string student_name：学生姓名
-*   - std::string student_id：学生ID
-*   - std::string teacher_name：教师姓名
-*   - std::string teacher_id：教师ID
-*   - std::string course_name：课程名称
-*   - std::string course_id：课程ID
-*   - std::string title：作业标题
-*   - std::string request_id：请求ID
-*   - std::string hw_id：作业ID
-*   - std::string content：作业内容
-*   - bool isMarked：批改状态（true表示已批改，false表示未批改）
-*   - int grade：成绩
-*
-* 结构体 Request 包括以下成员：
-*   - __time submitTime：请求提交时间
-*   - std::string teacher_name：教师姓名
-*   - std::string teacher_id：教师ID
-*   - std::string course_name：课程名称
-*   - std::string course_id：课程ID
-*   - std::string title：请求标题
-*   - std::string id：请求ID
-*   - std::string content：请求内容
+
 *
 * 类 homeworkSet 包括以下成员：
 *   - int capacity：作业集合容量
@@ -60,72 +37,7 @@
 #include "basic.h"
 #include "user_function.h"
 #include "parameters.h"
-// /**
-//  * @struct homework
-//  * @brief 作业信息结构体，包括作业的提交时间、学生姓名、学生ID、教师姓名、教师ID、课程名称、课程ID、标题、请求ID、作业ID、内容、批改状态、成绩等信息
-//  */
-// struct homework {
-// 	__time submitTime;
-// 	std::string student_name;
-// 	std::string student_id;
-// 	std::string teacher_name;
-// 	std::string teacher_id;
-// 	std::string course_name;
-// 	std::string course_id;
-// 	std::string title;
-// 	std::string request_id;
-// 	std::string hw_id;
-// 	std::string content;
-// 	bool isMarked = false;
-// 	int grade = 0;
 
-// 	/**
-// 	 * @brief 重载输入运算符 >>，用于从流中读取作业信息到 homework 结构体
-// 	 * @param in 输入流
-// 	 * @param hw 要读取的作业信息结构体
-// 	 * @return 输入流
-// 	 */
-// 	friend std::istream& operator >> (std::istream& in, homework& hw);
-
-// 	/**
-// 	 * @brief 重载输出运算符 <<，用于将 homework 结构体的作业信息输出到流
-// 	 * @param out 输出流
-// 	 * @param hw 要输出的作业信息结构体
-// 	 * @return 输出流
-// 	 */
-// 	friend std::ostream& operator << (std::ostream& out, const homework& hw);
-// };
-
-// /**
-//  * @struct Request
-//  * @brief 请求信息结构体，包括请求的提交时间、教师姓名、教师ID、课程名称、课程ID、标题、ID、内容等信息
-//  */
-// struct Request {
-// 	__time submitTime;
-// 	std::string teacher_name;
-// 	std::string teacher_id;
-// 	std::string course_name;
-// 	std::string course_id;
-// 	std::string title;
-// 	std::string id;
-// 	std::string content;
-
-// 	/**
-// 	 * @brief 重载输入运算符 >>，用于从流中读取请求信息到 Request 结构体
-// 	 * @param in 输入流
-// 	 * @param req 要读取的请求信息结构体
-// 	 * @return 输入流
-// 	 */
-// 	friend std::istream& operator >> (std::istream& in, Request& req);
-
-// 	/**
-// 	 * @brief 重载输出运算符 <<，用于将 Request 结构体的请求信息输出到流
-// 	 * @param out 输出流
-// 	 * @param req 要输出的请求信息结构体
-// 	 * @return 输出流
-// 	 */
-// 	friend std::ostream& operator << (std::ostream& out, const Request& req);
-// };
 
 
 /**
